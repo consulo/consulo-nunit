@@ -16,16 +16,23 @@
 
 package org.mustbe.consulo.nunit.module.extension;
 
+import java.io.File;
+
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
+import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import org.mustbe.consulo.module.extension.ChildLayeredModuleExtensionImpl;
 import org.mustbe.consulo.module.extension.ConfigurationLayer;
 import org.mustbe.consulo.module.extension.LayeredModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import org.mustbe.consulo.nunit.module.NUnitConfigurationLayer;
 import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.ide.plugins.IdeaPluginDescriptor;
+import com.intellij.ide.plugins.PluginManager;
+import com.intellij.ide.plugins.cl.PluginClassLoader;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.ModifiableRootModel;
@@ -92,8 +99,21 @@ public class MicrosoftNUnitModuleExtension extends ChildLayeredModuleExtensionIm
 	public GeneralCommandLine createCommandLine()
 	{
 		Sdk sdk = getSdk();
+		assert sdk != null;
+
+		MicrosoftDotNetModuleExtension extension = myRootModel.getExtension(MicrosoftDotNetModuleExtension.class);
+		assert extension != null;
+
 		GeneralCommandLine commandLine = new GeneralCommandLine();
-		commandLine.setExePath(sdk.getHomePath() + "/bin/nunit-console.exe");
+		commandLine.setExePath(extension.getLoaderPath().getAbsolutePath());
+
+		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
+		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
+		assert plugin != null;
+
+		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
+		commandLine.addParameter(sdk.getHomePath() + "/bin");
+
 		return commandLine;
 	}
 }

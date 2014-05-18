@@ -16,13 +16,17 @@
 
 package org.mustbe.consulo.nunit.module.extension;
 
+import java.io.File;
+
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.dotnet.module.MainConfigurationLayer;
-import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import org.mustbe.consulo.mono.csharp.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.ide.plugins.IdeaPluginDescriptor;
+import com.intellij.ide.plugins.PluginManager;
+import com.intellij.ide.plugins.cl.PluginClassLoader;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
@@ -48,7 +52,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 	{
 		SdkImpl sdk = new SdkImpl("Mono NUnit", NUnitBundleType.getInstance());
 		sdk.setHomePath(virtualFile.getPath());
-		sdk.setBundled();
+		sdk.setBundled(true);
 		sdk.setVersionString(NUnitBundleType.getInstance().getVersionString(sdk));
 
 		SdkModificator sdkModificator = sdk.getSdkModificator();
@@ -85,11 +89,20 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 	public GeneralCommandLine createCommandLine()
 	{
 		Sdk sdk = getSdk();
+		assert sdk != null;
 
-		DotNetModuleExtension extension = myRootModel.getExtension(DotNetModuleExtension.class);
+		MonoDotNetModuleExtension extension = myRootModel.getExtension(MonoDotNetModuleExtension.class);
 		assert extension != null;
-		MainConfigurationLayer currentLayer = (MainConfigurationLayer) extension.getCurrentLayer();
 
-		return MonoDotNetModuleExtension.createRunCommandLineImpl(sdk.getHomePath() + "/nunit-console.exe", currentLayer, null, myParentSdk);
+		GeneralCommandLine commandLine = extension.createDefaultCommandLine(extension.getLoaderPath().getAbsolutePath(), null);
+
+		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
+		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
+		assert plugin != null;
+
+		commandLine.addParameter(new File(plugin.getPath(), "mono-nunit-ex.dll").getAbsolutePath());
+		commandLine.addParameter(sdk.getHomePath());
+
+		return commandLine;
 	}
 }

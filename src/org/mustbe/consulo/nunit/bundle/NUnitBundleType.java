@@ -75,7 +75,7 @@ public class NUnitBundleType extends SdkType
 	@Override
 	public String suggestSdkName(String s, String s2)
 	{
-		return s2;
+		return "nunit";
 	}
 
 	@Nullable

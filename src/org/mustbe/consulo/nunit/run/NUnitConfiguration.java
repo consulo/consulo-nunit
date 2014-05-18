@@ -9,24 +9,26 @@ import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.compiler.DotNetMacros;
 import org.mustbe.consulo.dotnet.module.MainConfigurationLayer;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
+import org.mustbe.consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
+import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
+import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.configurations.ModuleBasedConfiguration;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunConfigurationModule;
 import com.intellij.execution.configurations.RunProfileState;
-import com.intellij.execution.filters.TextConsoleBuilder;
-import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.runners.ProgramRunner;
-import com.intellij.execution.testframework.sm.runner.SMTestProxy;
-import com.intellij.execution.ui.ConsoleView;
+import com.intellij.execution.testframework.TestConsoleProperties;
+import com.intellij.execution.testframework.sm.runner.GeneralTestEventsProcessor;
+import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
+import com.intellij.execution.testframework.ui.BaseTestsOutputConsoleView;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
@@ -113,26 +115,35 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 				String currentLayerName = dotNetModuleExtension.getCurrentLayerName();
 				MainConfigurationLayer currentLayer = (MainConfigurationLayer) dotNetModuleExtension.getCurrentLayer();
 
-				val exeFile = DotNetMacros.extract(module, currentLayerName, currentLayer);
+				val file = DotNetMacros.extract(module, currentLayerName, currentLayer);
+				val commandLine = nUnitModuleExtension.createCommandLine();
 
-				GeneralCommandLine commandLine = nUnitModuleExtension.createCommandLine();
-				commandLine.addParameter(exeFile);
-				commandLine.addParameter("/nologo");
-				commandLine.addParameter("/labels");
+				ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()
+				{
+					@Override
+					public BaseThriftTestHandler createHandler(GeneralTestEventsProcessor processor)
+					{
+						return new NUnitThriftTestHandler(processor);
+					}
+				};
 
-				TextConsoleBuilder builder = TextConsoleBuilderFactory.getInstance().createBuilder(getProject());
-				ConsoleView console = builder.getConsole();
+				commandLine.addParameter("consulo_nunit_wrapper.Program");
+				commandLine.addParameter(file);
+				commandLine.addParameter(String.valueOf(factory.getPort()));
 
-				val rootTestProxy = new SMTestProxy.SMRootTestProxy();
-				rootTestProxy.setStarted();
-				val testsOutputConsoleView = new NUnitTestsOutputConsoleView(env, console, rootTestProxy);
+				TestConsoleProperties testConsoleProperties = new SMTRunnerConsoleProperties((NUnitConfiguration) env.getRunProfile(), "NUnit",
+						executor);
+
+				testConsoleProperties.setIfUndefined(TestConsoleProperties.HIDE_PASSED_TESTS, false);
+
+				final BaseTestsOutputConsoleView smtConsoleView = ThriftTestExecutionUtil.createConsoleWithCustomLocator("NUnit",
+						testConsoleProperties, env, factory, null);
 
 				OSProcessHandler osProcessHandler = new OSProcessHandler(commandLine);
-				osProcessHandler.addProcessListener(new NUnitProcessAdapter(module, rootTestProxy, testsOutputConsoleView));
 
-				console.attachToProcess(osProcessHandler);
+				smtConsoleView.attachToProcess(osProcessHandler);
 
-				return new DefaultExecutionResult(testsOutputConsoleView, osProcessHandler);
+				return new DefaultExecutionResult(smtConsoleView, osProcessHandler);
 			}
 		};
 	}

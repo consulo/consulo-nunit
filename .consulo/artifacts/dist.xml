@@ -7,8 +7,11 @@
           <element id="zip-archive" name="nunit.jar">
             <element id="module-production-resource-output" name="consulo-nunit" />
             <element id="module-output" name="consulo-nunit" />
+            <element id="module-output" name="thriftTestRunner" />
           </element>
+          <element id="library" level="module" name="thrift" module-name="thriftTestRunner" />
         </element>
+        <element id="dir-copy" path="$PROJECT_DIR$/dist" />
       </element>
     </root>
   </artifact>
