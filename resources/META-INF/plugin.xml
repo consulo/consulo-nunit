@@ -1,5 +1,8 @@
 <idea-plugin>
 	<name>NUnit</name>
+	<version>SNAPSHOT</version>
+	<vendor>Must-Be.org</vendor>
+	<category>Test Frameworks</category>
 	<depends>org.mustbe.consulo.dotnet.core</depends>
 	<depends optional="true">org.mustbe.consulo.dotnet.mono</depends>
 	<depends optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
