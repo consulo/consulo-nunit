@@ -112,7 +112,7 @@ public class MicrosoftNUnitModuleExtension extends ChildLayeredModuleExtensionIm
 		assert plugin != null;
 
 		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
-		commandLine.addParameter(sdk.getHomePath() + "/bin");
+		commandLine.addParameter(sdk.getHomePath() + "/bin/lib");
 
 		return commandLine;
 	}
