@@ -11,6 +11,7 @@
 		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
+		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />
 
 		<moduleExtensionProvider key="microsoft-nunit"
 								 parentKey="microsoft-dotnet"

@@ -19,6 +19,12 @@ import lombok.val;
  */
 public class NUnitConfigurationType extends ConfigurationTypeBase
 {
+	@NotNull
+	public static NUnitConfigurationType getInstance()
+	{
+		return CONFIGURATION_TYPE_EP.findExtension(NUnitConfigurationType.class);
+	}
+
 	public NUnitConfigurationType()
 	{
 		super("#NUnitConfigurationType", "NUnit", "", NUnitIcons.NUnit);
