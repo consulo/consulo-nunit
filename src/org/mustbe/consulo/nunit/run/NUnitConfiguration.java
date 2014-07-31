@@ -7,7 +7,6 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.compiler.DotNetMacros;
-import org.mustbe.consulo.dotnet.module.MainConfigurationLayer;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import org.mustbe.consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
@@ -103,7 +102,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 		final NUnitModuleExtension nUnitModuleExtension = ModuleUtilCore.getExtension(module, NUnitModuleExtension.class);
 		if(nUnitModuleExtension == null)
 		{
-			throw new ExecutionException("MUnit module extension is not set");
+			throw new ExecutionException("NUnit module extension is not set");
 		}
 
 		return new RunProfileState()
@@ -112,10 +111,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 			@Override
 			public ExecutionResult execute(Executor executor, @NotNull ProgramRunner runner) throws ExecutionException
 			{
-				String currentLayerName = dotNetModuleExtension.getCurrentLayerName();
-				MainConfigurationLayer currentLayer = (MainConfigurationLayer) dotNetModuleExtension.getCurrentLayer();
-
-				val file = DotNetMacros.extract(module, currentLayerName, currentLayer);
+				val file = DotNetMacros.extract(module, dotNetModuleExtension);
 				val commandLine = nUnitModuleExtension.createCommandLine();
 
 				ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()

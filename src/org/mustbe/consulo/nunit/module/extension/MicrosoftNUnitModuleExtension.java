@@ -18,16 +18,10 @@ package org.mustbe.consulo.nunit.module.extension;
 
 import java.io.File;
 
-import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
+import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
-import org.mustbe.consulo.module.extension.ChildLayeredModuleExtensionImpl;
-import org.mustbe.consulo.module.extension.ConfigurationLayer;
-import org.mustbe.consulo.module.extension.LayeredModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
-import org.mustbe.consulo.nunit.module.NUnitConfigurationLayer;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -41,50 +35,12 @@ import com.intellij.openapi.roots.ModifiableRootModel;
  * @author VISTALL
  * @since 10.02.14
  */
-public class MicrosoftNUnitModuleExtension extends ChildLayeredModuleExtensionImpl<MicrosoftNUnitModuleExtension> implements
+public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MicrosoftNUnitModuleExtension> implements
 		NUnitModuleExtension<MicrosoftNUnitModuleExtension>
 {
 	public MicrosoftNUnitModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
 	{
 		super(id, module);
-	}
-
-	@NotNull
-	@Override
-	public Class<? extends LayeredModuleExtension> getHeadClass()
-	{
-		return DotNetModuleExtension.class;
-	}
-
-	@NotNull
-	@Override
-	protected ConfigurationLayer createLayer()
-	{
-		return new NUnitConfigurationLayer(this);
-	}
-
-	@NotNull
-	@Override
-	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
-	{
-		NUnitConfigurationLayer currentProfileEx = (NUnitConfigurationLayer) getCurrentLayer();
-		return currentProfileEx.getInheritableSdk();
-	}
-
-	@Nullable
-	@Override
-	public Sdk getSdk()
-	{
-		NUnitConfigurationLayer currentProfileEx = (NUnitConfigurationLayer) getCurrentLayer();
-		return currentProfileEx.getInheritableSdk().get();
-	}
-
-	@Nullable
-	@Override
-	public String getSdkName()
-	{
-		NUnitConfigurationLayer currentProfileEx = (NUnitConfigurationLayer) getCurrentLayer();
-		return currentProfileEx.getInheritableSdk().getName();
 	}
 
 	@NotNull

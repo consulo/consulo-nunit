@@ -23,7 +23,7 @@ import javax.swing.Icon;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.dotnet.dll.DotNetDllFileType;
+import org.mustbe.consulo.dotnet.dll.DotNetModuleFileType;
 import org.mustbe.consulo.nunit.NUnitIcons;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
@@ -88,7 +88,7 @@ public class NUnitBundleType extends SdkType
 	@Override
 	public boolean isRootTypeApplicable(OrderRootType type)
 	{
-		return type == OrderRootType.CLASSES || type == OrderRootType.DOCUMENTATION;
+		return type == OrderRootType.BINARIES || type == OrderRootType.DOCUMENTATION;
 	}
 
 	@Nullable
@@ -113,12 +113,12 @@ public class NUnitBundleType extends SdkType
 		{
 			for(VirtualFile virtualFile : relativePath.getChildren())
 			{
-				if(virtualFile.getFileType() == DotNetDllFileType.INSTANCE)
+				if(virtualFile.getFileType() == DotNetModuleFileType.INSTANCE)
 				{
 					VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(virtualFile);
 					if(archiveRootForLocalFile != null)
 					{
-						sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.CLASSES);
+						sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.BINARIES);
 					}
 				}
 				else if(virtualFile.getFileType() == XmlFileType.INSTANCE)

@@ -68,7 +68,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 				VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(fileByRelativePath);
 				if(archiveRootForLocalFile != null)
 				{
-					sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.CLASSES);
+					sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.BINARIES);
 				}
 			}
 		}

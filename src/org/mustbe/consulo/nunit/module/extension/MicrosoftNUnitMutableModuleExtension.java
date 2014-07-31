@@ -19,19 +19,30 @@ package org.mustbe.consulo.nunit.module.extension;
 import javax.swing.JComponent;
 
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
+import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
+import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
  * @author VISTALL
  * @since 10.02.14
  */
-public class MicrosoftNUnitMutableModuleExtension extends MicrosoftNUnitModuleExtension implements MutableModuleExtensionWithSdk<MicrosoftNUnitModuleExtension>
+public class MicrosoftNUnitMutableModuleExtension extends MicrosoftNUnitModuleExtension implements
+		MutableModuleExtensionWithSdk<MicrosoftNUnitModuleExtension>
 {
 	public MicrosoftNUnitMutableModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
 	{
 		super(id, module);
+	}
+
+	@NotNull
+	@Override
+	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
+	{
+		return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
 	}
 
 	@Override
@@ -44,7 +55,7 @@ public class MicrosoftNUnitMutableModuleExtension extends MicrosoftNUnitModuleEx
 	@Override
 	public JComponent createConfigurablePanel(@NotNull Runnable runnable)
 	{
-		return createConfigurablePanelImpl(runnable);
+		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
 	}
 
 	@Override
