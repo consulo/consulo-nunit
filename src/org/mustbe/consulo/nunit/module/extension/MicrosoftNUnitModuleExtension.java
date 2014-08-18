@@ -20,6 +20,7 @@ import java.io.File;
 
 import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
 import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -60,8 +61,10 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 		MicrosoftDotNetModuleExtension extension = myRootModel.getExtension(MicrosoftDotNetModuleExtension.class);
 		assert extension != null;
 
+		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
+
 		GeneralCommandLine commandLine = new GeneralCommandLine();
-		commandLine.setExePath(extension.getLoaderPath().getAbsolutePath());
+		commandLine.setExePath(dotNetSdkType.getLoaderFile().getAbsolutePath());
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);

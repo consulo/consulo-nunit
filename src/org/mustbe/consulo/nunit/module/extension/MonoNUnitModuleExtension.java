@@ -19,6 +19,7 @@ package org.mustbe.consulo.nunit.module.extension;
 import java.io.File;
 
 import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
 import org.mustbe.consulo.mono.csharp.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
@@ -94,7 +95,9 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 		MonoDotNetModuleExtension extension = myRootModel.getExtension(MonoDotNetModuleExtension.class);
 		assert extension != null;
 
-		GeneralCommandLine commandLine = extension.createDefaultCommandLine(extension.getLoaderPath().getAbsolutePath(), null);
+		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
+
+		GeneralCommandLine commandLine = extension.createDefaultCommandLine(dotNetSdkType.getLoaderFile().getAbsolutePath(), null);
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
