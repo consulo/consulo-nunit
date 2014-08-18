@@ -33,7 +33,7 @@ import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.projectRoots.impl.SdkImpl;
 import com.intellij.openapi.roots.ModifiableRootModel;
-import com.intellij.openapi.roots.OrderRootType;
+import com.intellij.openapi.roots.types.BinariesOrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
 
@@ -69,7 +69,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 				VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(fileByRelativePath);
 				if(archiveRootForLocalFile != null)
 				{
-					sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.BINARIES);
+					sdkModificator.addRoot(archiveRootForLocalFile, BinariesOrderRootType.getInstance());
 				}
 			}
 		}

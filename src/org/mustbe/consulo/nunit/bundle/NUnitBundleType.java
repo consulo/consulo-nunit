@@ -33,6 +33,8 @@ import com.intellij.openapi.projectRoots.SdkModel;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
+import com.intellij.openapi.roots.types.BinariesOrderRootType;
+import com.intellij.openapi.roots.types.DocumentationOrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
 
@@ -88,7 +90,7 @@ public class NUnitBundleType extends SdkType
 	@Override
 	public boolean isRootTypeApplicable(OrderRootType type)
 	{
-		return type == OrderRootType.BINARIES || type == OrderRootType.DOCUMENTATION;
+		return type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType.getInstance();
 	}
 
 	@Nullable
@@ -118,12 +120,12 @@ public class NUnitBundleType extends SdkType
 					VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(virtualFile);
 					if(archiveRootForLocalFile != null)
 					{
-						sdkModificator.addRoot(archiveRootForLocalFile, OrderRootType.BINARIES);
+						sdkModificator.addRoot(archiveRootForLocalFile, BinariesOrderRootType.getInstance());
 					}
 				}
 				else if(virtualFile.getFileType() == XmlFileType.INSTANCE)
 				{
-					sdkModificator.addRoot(virtualFile, OrderRootType.DOCUMENTATION);
+					sdkModificator.addRoot(virtualFile, DocumentationOrderRootType.getInstance());
 				}
 			}
 		}
