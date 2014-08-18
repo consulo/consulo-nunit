@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.dotnet.compiler.DotNetMacros;
+import org.mustbe.consulo.dotnet.compiler.DotNetMacroUtil;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import org.mustbe.consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
@@ -111,7 +111,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 			@Override
 			public ExecutionResult execute(Executor executor, @NotNull ProgramRunner runner) throws ExecutionException
 			{
-				val file = DotNetMacros.extract(module, dotNetModuleExtension);
+				val file = DotNetMacroUtil.expandOutputFile(dotNetModuleExtension);
 				val commandLine = nUnitModuleExtension.createCommandLine();
 
 				ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()
