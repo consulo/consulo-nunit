@@ -30,7 +30,7 @@ import com.intellij.ide.plugins.cl.PluginClassLoader;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL
@@ -39,9 +39,9 @@ import com.intellij.openapi.roots.ModifiableRootModel;
 public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MicrosoftNUnitModuleExtension> implements
 		NUnitModuleExtension<MicrosoftNUnitModuleExtension>
 {
-	public MicrosoftNUnitModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
+	public MicrosoftNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
 	{
-		super(id, module);
+		super(id, moduleRootLayer);
 	}
 
 	@NotNull
@@ -58,7 +58,7 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 		Sdk sdk = getSdk();
 		assert sdk != null;
 
-		MicrosoftDotNetModuleExtension extension = myRootModel.getExtension(MicrosoftDotNetModuleExtension.class);
+		MicrosoftDotNetModuleExtension extension = myModuleRootLayer.getExtension(MicrosoftDotNetModuleExtension.class);
 		assert extension != null;
 
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());

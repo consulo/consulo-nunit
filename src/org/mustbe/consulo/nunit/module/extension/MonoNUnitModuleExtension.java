@@ -32,7 +32,7 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.projectRoots.impl.SdkImpl;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 import com.intellij.openapi.roots.types.BinariesOrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
@@ -43,7 +43,7 @@ import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
  */
 public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnitModuleExtension> implements NUnitModuleExtension<MonoNUnitModuleExtension>
 {
-	public MonoNUnitModuleExtension(@NotNull String id, @NotNull ModifiableRootModel rootModel)
+	public MonoNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
 		super(id, rootModel);
 	}
@@ -92,7 +92,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 		Sdk sdk = getSdk();
 		assert sdk != null;
 
-		MonoDotNetModuleExtension extension = myRootModel.getExtension(MonoDotNetModuleExtension.class);
+		MonoDotNetModuleExtension extension = myModuleRootLayer.getExtension(MonoDotNetModuleExtension.class);
 		assert extension != null;
 
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());

@@ -23,7 +23,7 @@ import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL
@@ -31,7 +31,7 @@ import com.intellij.openapi.roots.ModifiableRootModel;
  */
 public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension implements MutableModuleExtensionWithSdk<MonoNUnitModuleExtension>
 {
-	public MonoNUnitMutableModuleExtension(@NotNull String id, @NotNull ModifiableRootModel rootModel)
+	public MonoNUnitMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
 		super(id, rootModel);
 	}
