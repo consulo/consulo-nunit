@@ -20,7 +20,6 @@ import java.io.File;
 
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
-import org.mustbe.consulo.mono.csharp.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.configurations.GeneralCommandLine;
