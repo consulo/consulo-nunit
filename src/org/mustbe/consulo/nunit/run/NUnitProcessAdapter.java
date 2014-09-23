@@ -25,7 +25,7 @@ import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import org.mustbe.consulo.dotnet.psi.DotNetMethodDeclaration;
 import org.mustbe.consulo.dotnet.psi.DotNetNamedElement;
 import org.mustbe.consulo.dotnet.psi.DotNetTypeDeclaration;
-import org.mustbe.consulo.dotnet.resolve.DotNetPsiFacade;
+import org.mustbe.consulo.dotnet.resolve.DotNetPsiSearcher;
 import com.intellij.execution.Location;
 import com.intellij.execution.PsiLocation;
 import com.intellij.execution.process.ProcessAdapter;
@@ -154,8 +154,8 @@ public class NUnitProcessAdapter extends ProcessAdapter
 
 				assert dotNetModuleExtension != null;
 
-				DotNetTypeDeclaration[] types = DotNetPsiFacade.getInstance(myModule.getProject()).findTypes(parent.toString(),
-						dotNetModuleExtension.getScopeForResolving(true), 0);
+				DotNetTypeDeclaration[] types = DotNetPsiSearcher.getInstance(myModule.getProject()).findTypes(parent.toString(),
+						dotNetModuleExtension.getScopeForResolving(true));
 
 				for(DotNetTypeDeclaration type : types)
 				{
