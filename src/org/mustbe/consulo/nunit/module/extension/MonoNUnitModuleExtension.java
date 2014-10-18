@@ -23,6 +23,7 @@ import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
 import org.mustbe.consulo.mono.dotnet.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
+import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -87,7 +88,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 
 	@NotNull
 	@Override
-	public GeneralCommandLine createCommandLine()
+	public GeneralCommandLine createCommandLine() throws ExecutionException
 	{
 		Sdk sdk = getSdk();
 		assert sdk != null;
