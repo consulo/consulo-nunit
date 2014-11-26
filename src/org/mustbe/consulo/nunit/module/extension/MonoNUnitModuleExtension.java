@@ -42,7 +42,8 @@ import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
  * @author VISTALL
  * @since 23.04.14
  */
-public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnitModuleExtension> implements NUnitModuleExtension<MonoNUnitModuleExtension>
+public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnitModuleExtension> implements
+		NUnitModuleExtension<MonoNUnitModuleExtension>
 {
 	public MonoNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
@@ -96,9 +97,16 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 		MonoDotNetModuleExtension extension = myModuleRootLayer.getExtension(MonoDotNetModuleExtension.class);
 		assert extension != null;
 
+		Sdk monoNetSdk = extension.getSdk();
+		if(monoNetSdk == null)
+		{
+			throw new ExecutionException(".NET SDK is not set");
+		}
+
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
 
-		GeneralCommandLine commandLine = extension.createDefaultCommandLine(dotNetSdkType.getLoaderFile().getAbsolutePath(), null);
+		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(monoNetSdk, null,
+				dotNetSdkType.getLoaderFile().getAbsolutePath());
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
