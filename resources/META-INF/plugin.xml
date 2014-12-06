@@ -1,30 +1,17 @@
 <idea-plugin>
+	<id>org.mustbe.consulo.nunit</id>
 	<name>NUnit</name>
 	<version>SNAPSHOT</version>
 	<vendor>Must-Be.org</vendor>
 	<category>Test Frameworks</category>
 	<depends>org.mustbe.consulo.dotnet.core</depends>
-	<depends optional="true">org.mustbe.consulo.dotnet.mono</depends>
-	<depends optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
+	<depends config-file="mono.xml" optional="true">org.mustbe.consulo.dotnet.mono</depends>
+	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
 		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />
-
-		<moduleExtensionProvider key="microsoft-nunit"
-								 parentKey="microsoft-dotnet"
-								 name="NUnit"
-								 icon="/icons/nunit.png"
-								 immutableClass="org.mustbe.consulo.nunit.module.extension.MicrosoftNUnitModuleExtension"
-								 mutableClass="org.mustbe.consulo.nunit.module.extension.MicrosoftNUnitMutableModuleExtension"/>
-		<moduleExtensionProvider key="mono-nunit"
-								 parentKey="mono-dotnet"
-								 name="NUnit"
-								 icon="/icons/nunit.png"
-								 immutableClass="org.mustbe.consulo.nunit.module.extension.MonoNUnitModuleExtension"
-								 mutableClass="org.mustbe.consulo.nunit.module.extension.MonoNUnitMutableModuleExtension"/>
-
 	</extensions>
 </idea-plugin>
