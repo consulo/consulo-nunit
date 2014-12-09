@@ -1,6 +1,5 @@
 package org.mustbe.consulo.nunit.run;
 
-import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import com.intellij.execution.configurations.ModuleRunProfile;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.runners.ExecutionEnvironment;
@@ -11,7 +10,6 @@ import com.intellij.execution.testframework.ui.TestResultsPanel;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.config.Storage;
 
@@ -45,15 +43,7 @@ public class NUnitTestsOutputConsoleView extends BaseTestsOutputConsoleView
 				GlobalSearchScope scope = GlobalSearchScope.EMPTY_SCOPE;
 				for(Module each : modules)
 				{
-					DotNetModuleExtension extension = ModuleUtilCore.getExtension(each, DotNetModuleExtension.class);
-					if(extension != null)
-					{
-						scope = scope.uniteWith(extension.getScopeForResolving(true));
-					}
-					else
-					{
-						scope = scope.uniteWith(GlobalSearchScope.moduleRuntimeScope(each, true));
-					}
+					scope = scope.uniteWith(GlobalSearchScope.moduleRuntimeScope(each, true));
 				}
 				return scope;
 			}

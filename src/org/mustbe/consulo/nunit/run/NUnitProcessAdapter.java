@@ -155,7 +155,7 @@ public class NUnitProcessAdapter extends ProcessAdapter
 				assert dotNetModuleExtension != null;
 
 				DotNetTypeDeclaration[] types = DotNetPsiSearcher.getInstance(myModule.getProject()).findTypes(parent.toString(),
-						dotNetModuleExtension.getScopeForResolving(true));
+						myModule.getModuleWithDependenciesScope());
 
 				for(DotNetTypeDeclaration type : types)
 				{
