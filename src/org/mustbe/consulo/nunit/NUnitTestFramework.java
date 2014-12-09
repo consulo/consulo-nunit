@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.psi.DotNetAttributeUtil;
 import org.mustbe.consulo.dotnet.psi.DotNetMethodDeclaration;
-import org.mustbe.consulo.dotnet.psi.DotNetModifierListOwner;
 import org.mustbe.consulo.dotnet.psi.DotNetTypeDeclaration;
 import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.ide.fileTemplates.FileTemplateDescriptor;
@@ -84,7 +83,7 @@ public class NUnitTestFramework implements TestFramework
 
 		if(element instanceof DotNetTypeDeclaration)
 		{
-			return DotNetAttributeUtil.hasAttribute((DotNetTypeDeclaration) element, NUnitTypes.TestFixtureAttribute);
+			return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestFixtureAttribute);
 		}
 		return false;
 	}
@@ -151,7 +150,7 @@ public class NUnitTestFramework implements TestFramework
 
 		if(element instanceof DotNetMethodDeclaration)
 		{
-			return DotNetAttributeUtil.hasAttribute((DotNetModifierListOwner) element, NUnitTypes.TestAttribute);
+			return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestAttribute);
 		}
 		return false;
 	}
