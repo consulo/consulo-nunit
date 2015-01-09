@@ -106,7 +106,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
 
 		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(monoNetSdk, null,
-				dotNetSdkType.getLoaderFile().getAbsolutePath());
+				dotNetSdkType.getLoaderFile(extension.getSdk()).getAbsolutePath());
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);

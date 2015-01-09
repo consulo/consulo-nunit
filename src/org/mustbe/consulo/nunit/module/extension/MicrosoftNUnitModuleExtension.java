@@ -65,7 +65,7 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
 
 		GeneralCommandLine commandLine = new GeneralCommandLine();
-		commandLine.setExePath(dotNetSdkType.getLoaderFile().getAbsolutePath());
+		commandLine.setExePath(dotNetSdkType.getLoaderFile(extension.getSdk()).getAbsolutePath());
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
