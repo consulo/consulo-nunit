@@ -20,6 +20,7 @@ import javax.swing.JComponent;
 
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
+import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
@@ -43,22 +44,22 @@ public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension im
 		return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
 	}
 
+	@Override
+	public void setEnabled(boolean b)
+	{
+		myIsEnabled = b;
+	}
+
 	@Nullable
 	@Override
-	public JComponent createConfigurablePanel(@NotNull Runnable updateOnCheck)
+	public JComponent createConfigurablePanel(@NotNull Runnable runnable)
 	{
-		return null;
+		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
 	}
 
 	@Override
-	public void setEnabled(boolean val)
+	public boolean isModified(@NotNull MonoNUnitModuleExtension extension)
 	{
-		setEnabledImpl(val);
-	}
-
-	@Override
-	public boolean isModified(@NotNull MonoNUnitModuleExtension originalExtension)
-	{
-		return isEnabled() != originalExtension.isEnabled();
+		return isModifiedImpl(extension);
 	}
 }

@@ -18,11 +18,11 @@ package org.mustbe.consulo.nunit.module.extension;
 
 import java.io.File;
 
+import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.dotnet.execution.DebugConnectionInfo;
 import org.mustbe.consulo.dotnet.run.DotNetRunKeys;
 import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
-import org.mustbe.consulo.mono.dotnet.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.ExecutionException;
@@ -34,54 +34,19 @@ import com.intellij.ide.plugins.PluginManager;
 import com.intellij.ide.plugins.cl.PluginClassLoader;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.projectRoots.impl.SdkImpl;
 import com.intellij.openapi.roots.ModuleRootLayer;
-import com.intellij.openapi.roots.types.BinariesOrderRootType;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
 
 /**
  * @author VISTALL
  * @since 23.04.14
  */
-public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnitModuleExtension> implements
+public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUnitModuleExtension> implements
 		NUnitModuleExtension<MonoNUnitModuleExtension>
 {
 	public MonoNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
 		super(id, rootModel);
-	}
-
-	@Override
-	protected Sdk createSdk(VirtualFile virtualFile)
-	{
-		SdkImpl sdk = new SdkImpl("Mono NUnit", NUnitBundleType.getInstance());
-		sdk.setHomePath(virtualFile.getPath());
-		sdk.setBundled(true);
-		sdk.setVersionString(NUnitBundleType.getInstance().getVersionString(sdk));
-
-		SdkModificator sdkModificator = sdk.getSdkModificator();
-
-		for(String libFile : new String[]{
-				"nunit.framework.dll",
-				"nunit.mocks.dll"
-		})
-		{
-			VirtualFile fileByRelativePath = virtualFile.findFileByRelativePath(libFile);
-			if(fileByRelativePath != null)
-			{
-				VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(fileByRelativePath);
-				if(archiveRootForLocalFile != null)
-				{
-					sdkModificator.addRoot(archiveRootForLocalFile, BinariesOrderRootType.getInstance());
-				}
-			}
-		}
-
-		sdkModificator.commitChanges();
-		return sdk;
 	}
 
 	@NotNull
@@ -123,8 +88,8 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
 		assert plugin != null;
 
-		commandLine.addParameter(new File(plugin.getPath(), "mono-nunit-ext.dll").getAbsolutePath());
-		commandLine.addParameter(sdk.getHomePath());
+		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
+		commandLine.addParameter(sdk.getHomePath() + "/bin/lib");
 
 		return commandLine;
 	}
