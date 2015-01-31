@@ -88,7 +88,7 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
 		assert plugin != null;
 
-		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
+		commandLine.addParameter(new File(plugin.getPath(), "mono-nunit-ext.dll").getAbsolutePath());
 		commandLine.addParameter(sdk.getHomePath() + "/bin/lib");
 
 		return commandLine;
