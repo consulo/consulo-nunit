@@ -20,23 +20,23 @@ import java.io.File;
 
 import javax.swing.Icon;
 
-import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.dll.DotNetModuleFileType;
+import org.mustbe.consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import org.mustbe.consulo.nunit.NUnitIcons;
 import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.projectRoots.SdkModel;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.types.BinariesOrderRootType;
 import com.intellij.openapi.roots.types.DocumentationOrderRootType;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
+import edu.arizona.cs.mbel.mbel.AssemblyInfo;
+import edu.arizona.cs.mbel.mbel.ModuleParser;
 
 /**
  * @author VISTALL
@@ -69,22 +69,33 @@ public class NUnitBundleType extends SdkType
 
 	@Nullable
 	@Override
-	public String getVersionString(String s)
+	public String getVersionString(String home)
 	{
-		return "1";
+		File file = new File(home, "bin/nunit.exe");
+		if(file.exists())
+		{
+			try
+			{
+				ModuleParser parser = DotNetLibraryOpenCache.acquireWithNext(file.getPath());
+				AssemblyInfo assemblyInfo = parser.getAssemblyInfo();
+				return StringUtil.join(new int[]{
+						assemblyInfo.getMajorVersion(),
+						assemblyInfo.getMinorVersion(),
+						assemblyInfo.getBuildNumber()
+				}, ".");
+			}
+			catch(Exception ignored)
+			{
+				///
+			}
+		}
+		return "0.0";
 	}
 
 	@Override
-	public String suggestSdkName(String s, String s2)
+	public String suggestSdkName(String s, String sdkHome)
 	{
-		return "nunit";
-	}
-
-	@Nullable
-	@Override
-	public AdditionalDataConfigurable createAdditionalDataConfigurable(SdkModel sdkModel, SdkModificator sdkModificator)
-	{
-		return null;
+		return "NUnit " + getVersionString(sdkHome);
 	}
 
 	@Override
@@ -137,11 +148,5 @@ public class NUnitBundleType extends SdkType
 	public String getPresentableName()
 	{
 		return "NUnit";
-	}
-
-	@Override
-	public void saveAdditionalData(SdkAdditionalData sdkAdditionalData, Element element)
-	{
-
 	}
 }
