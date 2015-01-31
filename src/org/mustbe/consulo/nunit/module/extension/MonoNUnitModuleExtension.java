@@ -19,12 +19,16 @@ package org.mustbe.consulo.nunit.module.extension;
 import java.io.File;
 
 import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.dotnet.execution.DebugConnectionInfo;
+import org.mustbe.consulo.dotnet.run.DotNetRunKeys;
 import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
 import org.mustbe.consulo.mono.dotnet.module.extension.InnerMonoModuleExtension;
 import org.mustbe.consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.ExecutionException;
+import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.ide.plugins.cl.PluginClassLoader;
@@ -89,7 +93,7 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 
 	@NotNull
 	@Override
-	public GeneralCommandLine createCommandLine() throws ExecutionException
+	public GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException
 	{
 		Sdk sdk = getSdk();
 		assert sdk != null;
@@ -105,8 +109,15 @@ public class MonoNUnitModuleExtension extends InnerMonoModuleExtension<MonoNUnit
 
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
 
-		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(monoNetSdk, null,
+		DebugConnectionInfo debugConnectionInfo = null;
+		if(executor instanceof DefaultDebugExecutor)
+		{
+			debugConnectionInfo = new DebugConnectionInfo("127.0.0.1", -1, true);
+		}
+
+		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(monoNetSdk, debugConnectionInfo,
 				dotNetSdkType.getLoaderFile(extension.getSdk()).getAbsolutePath());
+		commandLine.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);

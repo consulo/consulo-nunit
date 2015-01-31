@@ -19,6 +19,7 @@ package org.mustbe.consulo.nunit.module.extension;
 import org.consulo.module.extension.ModuleExtensionWithSdk;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.ExecutionException;
+import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 
 /**
@@ -28,5 +29,5 @@ import com.intellij.execution.configurations.GeneralCommandLine;
 public interface NUnitModuleExtension<T extends NUnitModuleExtension<T>> extends ModuleExtensionWithSdk<T>
 {
 	@NotNull
-	GeneralCommandLine createCommandLine() throws ExecutionException;
+	GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException;
 }

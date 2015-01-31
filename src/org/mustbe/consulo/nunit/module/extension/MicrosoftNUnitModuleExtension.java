@@ -24,6 +24,7 @@ import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
 import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.ExecutionException;
+import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -54,7 +55,7 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 
 	@NotNull
 	@Override
-	public GeneralCommandLine createCommandLine() throws ExecutionException
+	public GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException
 	{
 		Sdk sdk = getSdk();
 		assert sdk != null;

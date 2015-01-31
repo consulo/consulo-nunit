@@ -7,7 +7,9 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.compiler.DotNetMacroUtil;
+import org.mustbe.consulo.dotnet.execution.DebugConnectionInfo;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
+import org.mustbe.consulo.dotnet.run.DotNetRunKeys;
 import org.mustbe.consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
 import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageConfigurationEditor;
 import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
@@ -119,7 +121,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 		}
 
 		val file = DotNetMacroUtil.expandOutputFile(dotNetModuleExtension);
-		val commandLine = nUnitModuleExtension.createCommandLine();
+		val commandLine = nUnitModuleExtension.createCommandLine(executor);
 
 		ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()
 		{
@@ -134,6 +136,13 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 		commandLine.addParameter(file);
 		commandLine.addParameter(String.valueOf(factory.getPort()));
 
-		return new NUnitRunState(env, commandLine, factory);
+		NUnitRunState state = new NUnitRunState(env, commandLine, factory);
+
+		DebugConnectionInfo debugConnectionInfo = commandLine.getUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY);
+		if(debugConnectionInfo != null)
+		{
+			state.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
+		}
+		return state;
 	}
 }
