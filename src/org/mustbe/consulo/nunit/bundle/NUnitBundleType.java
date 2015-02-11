@@ -17,6 +17,9 @@
 package org.mustbe.consulo.nunit.bundle;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.Icon;
 
@@ -25,7 +28,12 @@ import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.dotnet.dll.DotNetModuleFileType;
 import org.mustbe.consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import org.mustbe.consulo.nunit.NUnitIcons;
+import org.mustbe.consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import com.intellij.ide.highlighter.XmlFileType;
+import com.intellij.ide.plugins.IdeaPluginDescriptor;
+import com.intellij.ide.plugins.PluginManager;
+import com.intellij.ide.plugins.cl.PluginClassLoader;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
@@ -54,11 +62,30 @@ public class NUnitBundleType extends SdkType
 		super("NUNIT_BUNDLE");
 	}
 
-	@Nullable
+	@NotNull
 	@Override
-	public String suggestHomePath()
+	public Collection<String> suggestHomePaths()
 	{
-		return null;
+		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
+		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
+		assert plugin != null;
+
+		List<String> paths = new ArrayList<String>();
+		File file = new File(plugin.getPath(), "releases");
+		if(file.exists())
+		{
+			for(File child : file.listFiles())
+			{
+				paths.add(child.getPath());
+			}
+		}
+		return paths;
+	}
+
+	@Override
+	public boolean canCreatePredefinedSdks()
+	{
+		return true;
 	}
 
 	@Override

@@ -11,7 +11,6 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
-		<bundledSdkProvider implementation="org.mustbe.consulo.nunit.bundle.NUnitBundledSdkProvider" />
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
 		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />
 	</extensions>
