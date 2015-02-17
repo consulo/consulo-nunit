@@ -5,6 +5,7 @@
 	<vendor>Must-Be.org</vendor>
 	<category>Test Frameworks</category>
 	<depends>org.mustbe.consulo.dotnet.core</depends>
+	<depends>com.intellij.xml</depends>
 	<depends config-file="mono.xml" optional="true">org.mustbe.consulo.dotnet.mono</depends>
 	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
 
