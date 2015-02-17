@@ -58,21 +58,9 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 
 	@NotNull
 	@Override
-	public GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException
+	public GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException
 	{
-		Sdk sdk = getSdk();
-		assert sdk != null;
-
-		MonoDotNetModuleExtension extension = myModuleRootLayer.getExtension(MonoDotNetModuleExtension.class);
-		assert extension != null;
-
-		Sdk monoNetSdk = extension.getSdk();
-		if(monoNetSdk == null)
-		{
-			throw new ExecutionException(".NET SDK is not set");
-		}
-
-		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
+		DotNetSdkType dotNetSdkType = (DotNetSdkType) dotNetSdk.getSdkType();
 
 		DebugConnectionInfo debugConnectionInfo = null;
 		if(executor instanceof DefaultDebugExecutor)
@@ -80,8 +68,8 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 			debugConnectionInfo = new DebugConnectionInfo("127.0.0.1", -1, true);
 		}
 
-		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(monoNetSdk, debugConnectionInfo,
-				dotNetSdkType.getLoaderFile(extension.getSdk()).getAbsolutePath());
+		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo,
+				dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
 		commandLine.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
@@ -89,7 +77,7 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 		assert plugin != null;
 
 		commandLine.addParameter(new File(plugin.getPath(), "mono-nunit-ext.dll").getAbsolutePath());
-		commandLine.addParameter(sdk.getHomePath() + "/bin/lib");
+		commandLine.addParameter(nunitSdk.getHomePath() + "/bin/lib");
 
 		return commandLine;
 	}

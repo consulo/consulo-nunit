@@ -21,7 +21,6 @@ import java.io.File;
 import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.dotnet.sdk.DotNetSdkType;
-import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
@@ -55,25 +54,19 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 
 	@NotNull
 	@Override
-	public GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException
+	public GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException
 	{
-		Sdk sdk = getSdk();
-		assert sdk != null;
-
-		MicrosoftDotNetModuleExtension extension = myModuleRootLayer.getExtension(MicrosoftDotNetModuleExtension.class);
-		assert extension != null;
-
-		DotNetSdkType dotNetSdkType = (DotNetSdkType) SdkType.EP_NAME.findExtension(extension.getSdkTypeClass());
+		DotNetSdkType dotNetSdkType = (DotNetSdkType) dotNetSdk.getSdkType();
 
 		GeneralCommandLine commandLine = new GeneralCommandLine();
-		commandLine.setExePath(dotNetSdkType.getLoaderFile(extension.getSdk()).getAbsolutePath());
+		commandLine.setExePath(dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
 		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
 		assert plugin != null;
 
 		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
-		commandLine.addParameter(sdk.getHomePath() + "/bin/lib");
+		commandLine.addParameter(nunitSdk.getHomePath() + "/bin/lib");
 
 		return commandLine;
 	}

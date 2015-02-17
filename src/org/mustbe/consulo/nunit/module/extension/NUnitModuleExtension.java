@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.openapi.projectRoots.Sdk;
 
 /**
  * @author VISTALL
@@ -29,5 +30,5 @@ import com.intellij.execution.configurations.GeneralCommandLine;
 public interface NUnitModuleExtension<T extends NUnitModuleExtension<T>> extends ModuleExtensionWithSdk<T>
 {
 	@NotNull
-	GeneralCommandLine createCommandLine(@NotNull Executor executor) throws ExecutionException;
+	GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException;
 }

@@ -31,6 +31,7 @@ import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.options.SettingsEditorGroup;
+import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import lombok.val;
@@ -114,14 +115,27 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 		{
 			throw new ExecutionException(".NET module extension is not set");
 		}
+
+		Sdk dotNetSdk = dotNetModuleExtension.getSdk();
+		if(dotNetSdk == null)
+		{
+			throw new ExecutionException(".NET SDK is not set");
+		}
+
 		final NUnitModuleExtension nUnitModuleExtension = ModuleUtilCore.getExtension(module, NUnitModuleExtension.class);
 		if(nUnitModuleExtension == null)
 		{
 			throw new ExecutionException("NUnit module extension is not set");
 		}
 
+		Sdk nunitSdk = nUnitModuleExtension.getSdk();
+		if(nunitSdk == null)
+		{
+			throw new ExecutionException("NUnit SDK is not set");
+		}
+
 		val file = DotNetMacroUtil.expandOutputFile(dotNetModuleExtension);
-		val commandLine = nUnitModuleExtension.createCommandLine(executor);
+		val commandLine = nUnitModuleExtension.createCommandLine(executor, dotNetSdk, nunitSdk);
 
 		ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()
 		{
