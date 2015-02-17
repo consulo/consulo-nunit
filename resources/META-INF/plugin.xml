@@ -9,6 +9,7 @@
 	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
+		<errorHandler implementation="com.intellij.diagnostic.ITNReporter" />
 		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
