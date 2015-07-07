@@ -44,7 +44,6 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
 import edu.arizona.cs.mbel.mbel.AssemblyInfo;
-import edu.arizona.cs.mbel.mbel.ModuleParser;
 
 /**
  * @author VISTALL
@@ -101,10 +100,11 @@ public class NUnitBundleType extends SdkType
 		File file = new File(home, "bin/nunit.exe");
 		if(file.exists())
 		{
+			DotNetLibraryOpenCache.Record record = null;
 			try
 			{
-				ModuleParser parser = DotNetLibraryOpenCache.acquireWithNext(file.getPath());
-				AssemblyInfo assemblyInfo = parser.getAssemblyInfo();
+				record = DotNetLibraryOpenCache.acquireWithNext(file.getPath());
+				AssemblyInfo assemblyInfo = record.get().getAssemblyInfo();
 				return StringUtil.join(new int[]{
 						assemblyInfo.getMajorVersion(),
 						assemblyInfo.getMinorVersion(),
@@ -114,6 +114,13 @@ public class NUnitBundleType extends SdkType
 			catch(Exception ignored)
 			{
 				///
+			}
+			finally
+			{
+				if(record != null)
+				{
+					record.finish();
+				}
 			}
 		}
 		return "0.0";
