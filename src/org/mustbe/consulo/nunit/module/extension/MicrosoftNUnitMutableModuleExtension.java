@@ -58,7 +58,7 @@ public class MicrosoftNUnitMutableModuleExtension extends MicrosoftNUnitModuleEx
 	@Override
 	public JComponent createConfigurablePanel(@NotNull Runnable runnable)
 	{
-		return JBUI.Panels.simplePanel().addToTop(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
+		return JBUI.Panels.verticalPanel().addComponent(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
 	}
 
 	@Override
