@@ -20,17 +20,20 @@ import javax.swing.JComponent;
 
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
-import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
+import org.consulo.module.extension.ui.ModuleExtensionSdkBoxBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredDispatchThread;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModuleRootLayer;
+import com.intellij.util.ui.JBUI;
 
 /**
  * @author VISTALL
  * @since 23.04.14
  */
-public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension implements MutableModuleExtensionWithSdk<MonoNUnitModuleExtension>
+public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension implements
+		MutableModuleExtensionWithSdk<MonoNUnitModuleExtension>
 {
 	public MonoNUnitMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
@@ -50,11 +53,12 @@ public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension im
 		myIsEnabled = b;
 	}
 
+	@RequiredDispatchThread
 	@Nullable
 	@Override
 	public JComponent createConfigurablePanel(@NotNull Runnable runnable)
 	{
-		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
+		return JBUI.Panels.simplePanel().addToTop(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
 	}
 
 	@Override
