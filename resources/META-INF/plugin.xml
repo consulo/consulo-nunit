@@ -7,11 +7,15 @@
 	<depends>org.mustbe.consulo.dotnet.core</depends>
 	<depends>com.intellij.xml</depends>
 	<depends config-file="mono.xml" optional="true">org.mustbe.consulo.dotnet.mono</depends>
-	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.microsoft.dotnet</depends>
+	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.dotnet.microsoft</depends>
+
+	<extensions defaultExtensionNs="org.mustbe.consulo.dotnet.core">
+		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
+
+	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<errorHandler implementation="com.intellij.diagnostic.ITNReporter" />
-		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
 		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />
