@@ -2,10 +2,12 @@ package org.mustbe.consulo.nunit.run;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredReadAction;
 import org.mustbe.consulo.dotnet.compiler.DotNetMacroUtil;
 import org.mustbe.consulo.dotnet.execution.DebugConnectionInfo;
 import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
@@ -19,6 +21,7 @@ import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
+import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.configurations.ModuleBasedConfiguration;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunConfigurationModule;
@@ -34,7 +37,6 @@ import com.intellij.openapi.options.SettingsEditorGroup;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
-import lombok.val;
 
 /**
  * @author VISTALL
@@ -48,10 +50,11 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 	}
 
 	@Override
+	@RequiredReadAction
 	public Collection<Module> getValidModules()
 	{
-		val list = new ArrayList<Module>();
-		for(val module : ModuleManager.getInstance(getProject()).getModules())
+		List<Module> list = new ArrayList<Module>();
+		for(Module module : ModuleManager.getInstance(getProject()).getModules())
 		{
 			if(ModuleUtilCore.getExtension(module, NUnitModuleExtension.class) != null)
 			{
@@ -102,9 +105,9 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 	@Override
 	public RunProfileState getState(@NotNull Executor executor, @NotNull final ExecutionEnvironment env) throws ExecutionException
 	{
-		val runProfile = (NUnitConfiguration) env.getRunProfile();
+		NUnitConfiguration runProfile = (NUnitConfiguration) env.getRunProfile();
 
-		val module = runProfile.getConfigurationModule().getModule();
+		Module module = runProfile.getConfigurationModule().getModule();
 		if(module == null)
 		{
 			throw new ExecutionException("Module is null");
@@ -134,8 +137,8 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 			throw new ExecutionException("NUnit SDK is not set");
 		}
 
-		val file = DotNetMacroUtil.expandOutputFile(dotNetModuleExtension);
-		val commandLine = nUnitModuleExtension.createCommandLine(executor, dotNetSdk, nunitSdk);
+		String file = DotNetMacroUtil.expandOutputFile(dotNetModuleExtension);
+		GeneralCommandLine commandLine = nUnitModuleExtension.createCommandLine(executor, dotNetSdk, nunitSdk);
 
 		ThriftTestHandlerFactory factory = new ThriftTestHandlerFactory()
 		{
