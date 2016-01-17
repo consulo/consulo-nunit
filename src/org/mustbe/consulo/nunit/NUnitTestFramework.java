@@ -19,22 +19,40 @@ package org.mustbe.consulo.nunit;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.RequiredReadAction;
 import org.mustbe.consulo.dotnet.psi.DotNetAttributeUtil;
+import org.mustbe.consulo.dotnet.psi.DotNetLikeMethodDeclaration;
 import org.mustbe.consulo.dotnet.psi.DotNetTypeDeclaration;
 import org.mustbe.consulo.dotnet.run.DotNetTestFramework;
 import org.mustbe.consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 import com.intellij.openapi.module.ModuleUtilCore;
+import com.intellij.psi.PsiElement;
 
 /**
  * @author VISTALL
  * @since 10.02.14
  */
-public class NUnitTestFramework implements DotNetTestFramework
+public class NUnitTestFramework extends DotNetTestFramework
 {
 	@RequiredReadAction
 	@Override
 	public boolean isTestType(@NotNull DotNetTypeDeclaration element)
 	{
-		NUnitSimpleModuleExtension extension = ModuleUtilCore.getExtension(element, NUnitSimpleModuleExtension.class);
-		return extension != null && DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestFixtureAttribute);
+		if(!checkExtension(element))
+		{
+			return false;
+		}
+		return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestFixtureAttribute) || super.isTestType(element);
+	}
+
+	@RequiredReadAction
+	@Override
+	public boolean isTestMethod(@NotNull DotNetLikeMethodDeclaration element)
+	{
+		return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestAttribute);
+	}
+
+	@RequiredReadAction
+	private boolean checkExtension(@NotNull PsiElement e)
+	{
+		return ModuleUtilCore.getExtension(e, NUnitSimpleModuleExtension.class) != null;
 	}
 }
