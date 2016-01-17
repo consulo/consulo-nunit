@@ -21,7 +21,7 @@ import org.mustbe.consulo.RequiredReadAction;
 import org.mustbe.consulo.dotnet.psi.DotNetAttributeUtil;
 import org.mustbe.consulo.dotnet.psi.DotNetTypeDeclaration;
 import org.mustbe.consulo.dotnet.run.DotNetTestFramework;
-import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
+import org.mustbe.consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 import com.intellij.openapi.module.ModuleUtilCore;
 
 /**
@@ -34,12 +34,7 @@ public class NUnitTestFramework implements DotNetTestFramework
 	@Override
 	public boolean isTestType(@NotNull DotNetTypeDeclaration element)
 	{
-		NUnitModuleExtension extension = ModuleUtilCore.getExtension(element, NUnitModuleExtension.class);
-		if(extension == null)
-		{
-			return false;
-		}
-
-		return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestFixtureAttribute);
+		NUnitSimpleModuleExtension extension = ModuleUtilCore.getExtension(element, NUnitSimpleModuleExtension.class);
+		return extension != null && DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestFixtureAttribute);
 	}
 }

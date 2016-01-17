@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 must-be.org
+ * Copyright 2013-2016 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,12 @@
 
 package org.mustbe.consulo.nunit.module.extension;
 
-import org.consulo.module.extension.ModuleExtensionWithSdk;
-import org.jetbrains.annotations.NotNull;
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.openapi.projectRoots.Sdk;
+import org.consulo.module.extension.ModuleExtension;
 
 /**
  * @author VISTALL
- * @since 23.04.14
+ * @since 17.01.2016
  */
-public interface NUnitModuleExtension<T extends NUnitModuleExtension<T>> extends NUnitSimpleModuleExtension<T>, ModuleExtensionWithSdk<T>
+public interface NUnitSimpleModuleExtension<T extends NUnitSimpleModuleExtension<T>> extends ModuleExtension<T>
 {
-	@NotNull
-	GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException;
 }
