@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2016 must-be.org
+ * Copyright 2013-2014 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.module.extension;
-
-import consulo.module.extension.ModuleExtension;
+package consulo.nunit;
 
 /**
  * @author VISTALL
- * @since 17.01.2016
+ * @since 10.02.14
  */
-public interface NUnitSimpleModuleExtension<T extends NUnitSimpleModuleExtension<T>> extends ModuleExtension<T>
+public interface NUnitTypes
 {
+	String TestAttribute = "NUnit.Framework.TestAttribute";
+	String TestFixtureAttribute = "NUnit.Framework.TestFixtureAttribute";
 }

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.module.extension;
+package consulo.nunit.module.extension;
 
 import java.io.File;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.nunit.bundle.NUnitBundleType;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -35,14 +34,14 @@ import consulo.dotnet.run.DotNetRunKeys;
 import consulo.dotnet.sdk.DotNetSdkType;
 import consulo.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
+import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL
  * @since 23.04.14
  */
-public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUnitModuleExtension> implements
-		NUnitModuleExtension<MonoNUnitModuleExtension>
+public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUnitModuleExtension> implements NUnitModuleExtension<MonoNUnitModuleExtension>
 {
 	public MonoNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
 	{
@@ -68,8 +67,7 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 			debugConnectionInfo = new DebugConnectionInfo("127.0.0.1", -1, true);
 		}
 
-		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo,
-				dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
+		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo, dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
 		commandLine.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
 
 		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();

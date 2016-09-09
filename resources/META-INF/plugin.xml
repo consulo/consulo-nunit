@@ -10,12 +10,12 @@
 	<depends config-file="microsoft.xml" optional="true">consulo.dotnet.microsoft</depends>
 
 	<extensions defaultExtensionNs="consulo.dotnet">
-		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
+		<testFramework implementation="consulo.nunit.NUnitTestFramework"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
-		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
-		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />
+		<sdkType implementation="consulo.nunit.bundle.NUnitBundleType"/>
+		<configurationType implementation="consulo.nunit.run.NUnitConfigurationType" />
+		<runConfigurationProducer implementation="consulo.nunit.run.NUnitConfigurationProducer" />
 	</extensions>
 </idea-plugin>

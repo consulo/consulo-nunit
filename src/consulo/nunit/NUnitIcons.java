@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit;
+package consulo.nunit;
 
 import javax.swing.Icon;
 

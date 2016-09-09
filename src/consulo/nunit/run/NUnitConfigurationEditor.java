@@ -1,4 +1,4 @@
-package org.mustbe.consulo.nunit.run;
+package consulo.nunit.run;
 
 import javax.swing.JComponent;
 

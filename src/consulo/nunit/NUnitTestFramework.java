@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit;
+package consulo.nunit;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
@@ -25,6 +24,7 @@ import consulo.dotnet.psi.DotNetAttributeUtil;
 import consulo.dotnet.psi.DotNetLikeMethodDeclaration;
 import consulo.dotnet.psi.DotNetTypeDeclaration;
 import consulo.dotnet.run.DotNetTestFramework;
+import consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 
 /**
  * @author VISTALL

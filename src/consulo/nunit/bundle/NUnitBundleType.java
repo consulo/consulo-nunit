@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.bundle;
+package consulo.nunit.bundle;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,8 +25,6 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.nunit.NUnitIcons;
-import org.mustbe.consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -41,6 +39,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import consulo.dotnet.dll.DotNetModuleFileType;
 import consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
+import consulo.nunit.NUnitIcons;
+import consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import consulo.roots.types.BinariesOrderRootType;
 import consulo.roots.types.DocumentationOrderRootType;
 import consulo.vfs.util.ArchiveVfsUtil;

@@ -1,4 +1,4 @@
-package org.mustbe.consulo.nunit.run;
+package consulo.nunit.run;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.List;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -37,6 +36,7 @@ import consulo.dotnet.run.coverage.DotNetCoverageConfigurationEditor;
 import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
 import consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
+import consulo.nunit.module.extension.NUnitModuleExtension;
 
 /**
  * @author VISTALL

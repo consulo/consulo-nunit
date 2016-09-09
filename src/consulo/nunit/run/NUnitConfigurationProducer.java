@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.run;
+package consulo.nunit.run;
 
-import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.actions.RunConfigurationProducer;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiElement;
+import consulo.nunit.module.extension.NUnitModuleExtension;
 
 /**
  * @author VISTALL

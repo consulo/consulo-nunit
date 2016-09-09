@@ -20,7 +20,7 @@
 								 parentKey="mono-dotnet"
 								 name="NUnit"
 								 icon="/icons/nunit.png"
-								 immutableClass="org.mustbe.consulo.nunit.module.extension.MonoNUnitModuleExtension"
-								 mutableClass="org.mustbe.consulo.nunit.module.extension.MonoNUnitMutableModuleExtension"/>
+								 immutableClass="consulo.nunit.module.extension.MonoNUnitModuleExtension"
+								 mutableClass="consulo.nunit.module.extension.MonoNUnitMutableModuleExtension"/>
 	</extensions>
 </idea-plugin>

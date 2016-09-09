@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.module.extension;
+package consulo.nunit.module.extension;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.ExecutionException;

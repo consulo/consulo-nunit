@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.run;
+package consulo.nunit.run;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,9 +41,7 @@ public class NUnitRunState extends PatchableRunProfileState
 {
 	private final ThriftTestHandlerFactory myFactory;
 
-	public NUnitRunState(@NotNull ExecutionEnvironment executionEnvironment,
-			@NotNull GeneralCommandLine runCommandLine,
-			ThriftTestHandlerFactory factory)
+	public NUnitRunState(@NotNull ExecutionEnvironment executionEnvironment, @NotNull GeneralCommandLine runCommandLine, ThriftTestHandlerFactory factory)
 	{
 		super(executionEnvironment, runCommandLine);
 		myFactory = factory;
@@ -53,13 +51,11 @@ public class NUnitRunState extends PatchableRunProfileState
 	@Override
 	public ExecutionResult executeImpl(Executor executor, @NotNull ProgramRunner programRunner) throws ExecutionException
 	{
-		TestConsoleProperties testConsoleProperties = new SMTRunnerConsoleProperties((NUnitConfiguration) myExecutionEnvironment.getRunProfile(),
-				"NUnit", executor);
+		TestConsoleProperties testConsoleProperties = new SMTRunnerConsoleProperties((NUnitConfiguration) myExecutionEnvironment.getRunProfile(), "NUnit", executor);
 
 		testConsoleProperties.setIfUndefined(TestConsoleProperties.HIDE_PASSED_TESTS, false);
 
-		final BaseTestsOutputConsoleView smtConsoleView = ThriftTestExecutionUtil.createConsoleWithCustomLocator("NUnit", testConsoleProperties,
-				myExecutionEnvironment, myFactory, null);
+		final BaseTestsOutputConsoleView smtConsoleView = ThriftTestExecutionUtil.createConsoleWithCustomLocator("NUnit", testConsoleProperties, myExecutionEnvironment, myFactory, null);
 
 		OSProcessHandler osProcessHandler = patchHandler(new OSProcessHandler(getCommandLineForRun()));
 

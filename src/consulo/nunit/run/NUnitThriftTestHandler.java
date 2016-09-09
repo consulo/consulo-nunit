@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.nunit.run;
+package consulo.nunit.run;
 
 
 import org.apache.thrift.TException;
