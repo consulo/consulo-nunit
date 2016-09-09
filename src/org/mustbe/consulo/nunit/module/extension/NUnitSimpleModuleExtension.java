@@ -16,7 +16,7 @@
 
 package org.mustbe.consulo.nunit.module.extension;
 
-import org.consulo.module.extension.ModuleExtension;
+import consulo.module.extension.ModuleExtension;
 
 /**
  * @author VISTALL

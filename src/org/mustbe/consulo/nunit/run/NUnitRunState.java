@@ -18,9 +18,6 @@ package org.mustbe.consulo.nunit.run;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.dotnet.run.PatchableRunProfileState;
-import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
-import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
@@ -32,6 +29,9 @@ import com.intellij.execution.runners.ProgramRunner;
 import com.intellij.execution.testframework.TestConsoleProperties;
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
 import com.intellij.execution.testframework.ui.BaseTestsOutputConsoleView;
+import consulo.dotnet.run.PatchableRunProfileState;
+import consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
+import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 
 /**
  * @author VISTALL

@@ -1,21 +1,19 @@
 <idea-plugin>
-	<id>org.mustbe.consulo.nunit</id>
+	<id>consulo.nunit</id>
 	<name>NUnit</name>
 	<version>SNAPSHOT</version>
 	<vendor>Must-Be.org</vendor>
 	<category>Test Frameworks</category>
-	<depends>org.mustbe.consulo.dotnet.core</depends>
+	<depends>consulo.dotnet</depends>
 	<depends>com.intellij.xml</depends>
-	<depends config-file="mono.xml" optional="true">org.mustbe.consulo.dotnet.mono</depends>
-	<depends config-file="microsoft.xml" optional="true">org.mustbe.consulo.dotnet.microsoft</depends>
+	<depends config-file="mono.xml" optional="true">consulo.dotnet.mono</depends>
+	<depends config-file="microsoft.xml" optional="true">consulo.dotnet.microsoft</depends>
 
-	<extensions defaultExtensionNs="org.mustbe.consulo.dotnet.core">
+	<extensions defaultExtensionNs="consulo.dotnet">
 		<testFramework implementation="org.mustbe.consulo.nunit.NUnitTestFramework"/>
-
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<errorHandler implementation="com.intellij.diagnostic.ITNReporter" />
 		<sdkType implementation="org.mustbe.consulo.nunit.bundle.NUnitBundleType"/>
 		<configurationType implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationType" />
 		<runConfigurationProducer implementation="org.mustbe.consulo.nunit.run.NUnitConfigurationProducer" />

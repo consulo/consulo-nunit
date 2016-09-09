@@ -3,8 +3,6 @@ package org.mustbe.consulo.nunit.run;
 import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.RequiredDispatchThread;
-import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
 import com.intellij.application.options.ModuleListCellRenderer;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
@@ -14,6 +12,8 @@ import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.util.ui.FormBuilder;
+import consulo.annotations.RequiredDispatchThread;
+import consulo.dotnet.module.extension.DotNetModuleExtension;
 
 /**
  * @author VISTALL

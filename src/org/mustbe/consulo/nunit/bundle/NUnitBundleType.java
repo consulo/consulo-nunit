@@ -25,8 +25,6 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.dotnet.dll.DotNetModuleFileType;
-import org.mustbe.consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import org.mustbe.consulo.nunit.NUnitIcons;
 import org.mustbe.consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import com.intellij.ide.highlighter.XmlFileType;
@@ -38,12 +36,14 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
-import com.intellij.openapi.roots.types.BinariesOrderRootType;
-import com.intellij.openapi.roots.types.DocumentationOrderRootType;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
-import edu.arizona.cs.mbel.mbel.AssemblyInfo;
+import consulo.dotnet.dll.DotNetModuleFileType;
+import consulo.dotnet.module.extension.DotNetLibraryOpenCache;
+import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
+import consulo.roots.types.BinariesOrderRootType;
+import consulo.roots.types.DocumentationOrderRootType;
+import consulo.vfs.util.ArchiveVfsUtil;
 
 /**
  * @author VISTALL

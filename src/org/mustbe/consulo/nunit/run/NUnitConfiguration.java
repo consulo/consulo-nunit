@@ -7,16 +7,6 @@ import java.util.List;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.mustbe.consulo.RequiredReadAction;
-import org.mustbe.consulo.dotnet.compiler.DotNetMacroUtil;
-import org.mustbe.consulo.dotnet.execution.DebugConnectionInfo;
-import org.mustbe.consulo.dotnet.module.extension.DotNetModuleExtension;
-import org.mustbe.consulo.dotnet.run.DotNetRunKeys;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageConfigurationEditor;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
-import org.mustbe.consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
-import org.mustbe.consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
@@ -37,6 +27,16 @@ import com.intellij.openapi.options.SettingsEditorGroup;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
+import consulo.annotations.RequiredReadAction;
+import consulo.dotnet.compiler.DotNetMacroUtil;
+import consulo.dotnet.execution.DebugConnectionInfo;
+import consulo.dotnet.module.extension.DotNetModuleExtension;
+import consulo.dotnet.run.DotNetRunKeys;
+import consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
+import consulo.dotnet.run.coverage.DotNetCoverageConfigurationEditor;
+import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
+import consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
+import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 
 /**
  * @author VISTALL

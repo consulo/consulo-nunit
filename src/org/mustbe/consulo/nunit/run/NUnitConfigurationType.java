@@ -1,8 +1,6 @@
 package org.mustbe.consulo.nunit.run;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.RequiredDispatchThread;
-import org.mustbe.consulo.module.extension.ModuleExtensionHelper;
 import org.mustbe.consulo.nunit.NUnitIcons;
 import org.mustbe.consulo.nunit.module.extension.NUnitModuleExtension;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
@@ -13,6 +11,8 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
+import consulo.annotations.RequiredDispatchThread;
+import consulo.module.extension.ModuleExtensionHelper;
 
 /**
  * @author VISTALL

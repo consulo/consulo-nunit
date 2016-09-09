@@ -17,14 +17,14 @@
 package org.mustbe.consulo.nunit;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.RequiredReadAction;
-import org.mustbe.consulo.dotnet.psi.DotNetAttributeUtil;
-import org.mustbe.consulo.dotnet.psi.DotNetLikeMethodDeclaration;
-import org.mustbe.consulo.dotnet.psi.DotNetTypeDeclaration;
-import org.mustbe.consulo.dotnet.run.DotNetTestFramework;
 import org.mustbe.consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.psi.PsiElement;
+import consulo.annotations.RequiredReadAction;
+import consulo.dotnet.psi.DotNetAttributeUtil;
+import consulo.dotnet.psi.DotNetLikeMethodDeclaration;
+import consulo.dotnet.psi.DotNetTypeDeclaration;
+import consulo.dotnet.run.DotNetTestFramework;
 
 /**
  * @author VISTALL

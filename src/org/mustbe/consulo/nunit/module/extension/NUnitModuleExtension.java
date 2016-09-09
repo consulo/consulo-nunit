@@ -16,12 +16,12 @@
 
 package org.mustbe.consulo.nunit.module.extension;
 
-import org.consulo.module.extension.ModuleExtensionWithSdk;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.openapi.projectRoots.Sdk;
+import consulo.module.extension.ModuleExtensionWithSdk;
 
 /**
  * @author VISTALL

@@ -18,9 +18,9 @@ package org.mustbe.consulo.nunit.run;
 
 
 import org.apache.thrift.TException;
-import org.mustbe.consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 import com.intellij.execution.testframework.sm.runner.GeneralTestEventsProcessor;
 import com.intellij.openapi.util.Comparing;
+import consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 
 /**
  * @author VISTALL
