@@ -25,7 +25,7 @@
 	</parent>
 
 	<groupId>consulo.plugin</groupId>
-	<artifactId>com.intellij.regexp</artifactId>
+	<artifactId>consulo.nunit</artifactId>
 	<version>2-SNAPSHOT</version>
 	<packaging>consulo-plugin</packaging>
 
@@ -49,6 +49,12 @@
 				<extensions>true</extensions>
 				<configuration>
 					<repositoryChannel>nightly</repositoryChannel>
+					<dependencies>
+						<dependency>consulo.dotnet</dependency>
+						<dependency>consulo.dotnet.mono</dependency>
+						<dependency>consulo.dotnet.microsoft</dependency>
+						<dependency>com.intellij.xml</dependency>
+					</dependencies>
 					<packaging>
 						<skip>${dev.mode}</skip>
 						<version>${build.number}</version>
@@ -67,6 +73,35 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet.mono</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet.microsoft</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>com.intellij.xml</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.thrift</groupId>
+			<artifactId>libthrift</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>consulo-lang-impl-testing</artifactId>

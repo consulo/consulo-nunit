@@ -103,7 +103,7 @@ public class NUnitBundleType extends SdkType
 			DotNetLibraryOpenCache.Record record = null;
 			try
 			{
-				record = DotNetLibraryOpenCache.acquireWithNext(file.getPath());
+				record = DotNetLibraryOpenCache.acquire(file.getPath());
 				AssemblyInfo assemblyInfo = record.get().getAssemblyInfo();
 				return StringUtil.join(new int[]{
 						assemblyInfo.getMajorVersion(),

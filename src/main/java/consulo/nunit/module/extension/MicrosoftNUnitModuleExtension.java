@@ -29,7 +29,7 @@ import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
 import consulo.dotnet.sdk.DotNetSdkType;
-import consulo.extension.impl.ModuleExtensionWithSdkImpl;
+import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
 

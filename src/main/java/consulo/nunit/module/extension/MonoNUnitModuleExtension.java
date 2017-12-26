@@ -32,7 +32,7 @@ import com.intellij.openapi.projectRoots.SdkType;
 import consulo.dotnet.execution.DebugConnectionInfo;
 import consulo.dotnet.run.DotNetRunKeys;
 import consulo.dotnet.sdk.DotNetSdkType;
-import consulo.extension.impl.ModuleExtensionWithSdkImpl;
+import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
