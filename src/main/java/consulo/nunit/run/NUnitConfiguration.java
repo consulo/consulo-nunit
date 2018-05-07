@@ -21,10 +21,9 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.jdom.Element;
-
-import javax.annotation.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -86,7 +85,6 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 	public void readExternal(Element element) throws InvalidDataException
 	{
 		super.readExternal(element);
-		readModule(element);
 
 		Element coverageElement = element.getChild("coverage");
 		if(coverageElement != null)
@@ -100,7 +98,6 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 	public void writeExternal(Element element) throws WriteExternalException
 	{
 		super.writeExternal(element);
-		writeModule(element);
 
 		CoverageEnabledConfiguration coverageEnabledConfiguration = DotNetCoverageEnabledConfiguration.getOrCreate(this);
 		Element coverageElement = new Element("coverage");

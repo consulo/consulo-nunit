@@ -16,9 +16,8 @@
 
 package consulo.nunit;
 
-import javax.swing.Icon;
-
 import com.intellij.openapi.util.IconLoader;
+import consulo.ui.image.Image;
 
 /**
  * @author VISTALL
@@ -26,5 +25,5 @@ import com.intellij.openapi.util.IconLoader;
  */
 public interface NUnitIcons
 {
-	Icon NUnit = IconLoader.findIcon("/icons/nunit.png");
+	Image NUnit = IconLoader.findIcon("/icons/nunit.png");
 }

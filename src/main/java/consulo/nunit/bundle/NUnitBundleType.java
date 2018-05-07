@@ -22,9 +22,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -43,6 +42,7 @@ import consulo.nunit.NUnitIcons;
 import consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import consulo.roots.types.BinariesOrderRootType;
 import consulo.roots.types.DocumentationOrderRootType;
+import consulo.ui.image.Image;
 import consulo.vfs.util.ArchiveVfsUtil;
 
 /**
@@ -140,7 +140,7 @@ public class NUnitBundleType extends SdkType
 
 	@Nullable
 	@Override
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return NUnitIcons.NUnit;
 	}
