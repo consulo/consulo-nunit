@@ -16,7 +16,8 @@
 
 package consulo.nunit.run;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -36,7 +37,7 @@ import consulo.nunit.module.extension.NUnitModuleExtension;
  */
 public class NUnitConfigurationType extends ConfigurationTypeBase
 {
-	@NotNull
+	@Nonnull
 	public static NUnitConfigurationType getInstance()
 	{
 		return CONFIGURATION_TYPE_EP.findExtension(NUnitConfigurationType.class);
@@ -54,14 +55,14 @@ public class NUnitConfigurationType extends ConfigurationTypeBase
 			}
 
 			@Override
-			public boolean isApplicable(@NotNull Project project)
+			public boolean isApplicable(@Nonnull Project project)
 			{
 				return ModuleExtensionHelper.getInstance(project).hasModuleExtension(NUnitModuleExtension.class);
 			}
 
 			@Override
 			@RequiredDispatchThread
-			public void onNewConfigurationCreated(@NotNull RunConfiguration configuration)
+			public void onNewConfigurationCreated(@Nonnull RunConfiguration configuration)
 			{
 				NUnitConfiguration dotNetConfiguration = (NUnitConfiguration) configuration;
 

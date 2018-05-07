@@ -16,7 +16,8 @@
 
 package consulo.nunit.module.extension;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -29,6 +30,6 @@ import consulo.module.extension.ModuleExtensionWithSdk;
  */
 public interface NUnitModuleExtension<T extends NUnitModuleExtension<T>> extends NUnitSimpleModuleExtension<T>, ModuleExtensionWithSdk<T>
 {
-	@NotNull
-	GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException;
+	@Nonnull
+	GeneralCommandLine createCommandLine(@Nonnull Executor executor, @Nonnull Sdk dotNetSdk, @Nonnull Sdk nunitSdk) throws ExecutionException;
 }

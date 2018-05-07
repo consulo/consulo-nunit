@@ -16,8 +16,9 @@
 
 package consulo.nunit.run;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
@@ -41,7 +42,7 @@ public class NUnitRunState extends PatchableRunProfileState
 {
 	private final ThriftTestHandlerFactory myFactory;
 
-	public NUnitRunState(@NotNull ExecutionEnvironment executionEnvironment, @NotNull GeneralCommandLine runCommandLine, ThriftTestHandlerFactory factory)
+	public NUnitRunState(@Nonnull ExecutionEnvironment executionEnvironment, @Nonnull GeneralCommandLine runCommandLine, ThriftTestHandlerFactory factory)
 	{
 		super(executionEnvironment, runCommandLine);
 		myFactory = factory;
@@ -49,7 +50,7 @@ public class NUnitRunState extends PatchableRunProfileState
 
 	@Nullable
 	@Override
-	public ExecutionResult executeImpl(Executor executor, @NotNull ProgramRunner programRunner) throws ExecutionException
+	public ExecutionResult executeImpl(Executor executor, @Nonnull ProgramRunner programRunner) throws ExecutionException
 	{
 		TestConsoleProperties testConsoleProperties = new SMTRunnerConsoleProperties((NUnitConfiguration) myExecutionEnvironment.getRunProfile(), "NUnit", executor);
 

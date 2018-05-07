@@ -18,7 +18,7 @@ package consulo.nunit.run;
 
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.application.options.ModuleListCellRenderer;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
@@ -58,7 +58,7 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
 		runConfiguration.getConfigurationModule().setModule((Module) myModuleComboBox.getSelectedItem());
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	@RequiredDispatchThread
 	protected JComponent createEditor()

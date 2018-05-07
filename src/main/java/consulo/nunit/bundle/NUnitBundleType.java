@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
@@ -61,7 +61,7 @@ public class NUnitBundleType extends SdkType
 		super("NUNIT_BUNDLE");
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<String> suggestHomePaths()
 	{
@@ -177,7 +177,7 @@ public class NUnitBundleType extends SdkType
 		sdkModificator.commitChanges();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getPresentableName()
 	{

@@ -16,7 +16,7 @@
 
 package consulo.nunit;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.psi.PsiElement;
 import consulo.annotations.RequiredReadAction;
@@ -34,7 +34,7 @@ public class NUnitTestFramework extends DotNetTestFramework
 {
 	@RequiredReadAction
 	@Override
-	public boolean isTestType(@NotNull DotNetTypeDeclaration element)
+	public boolean isTestType(@Nonnull DotNetTypeDeclaration element)
 	{
 		if(!checkExtension(element))
 		{
@@ -45,13 +45,13 @@ public class NUnitTestFramework extends DotNetTestFramework
 
 	@RequiredReadAction
 	@Override
-	public boolean isTestMethod(@NotNull DotNetLikeMethodDeclaration element)
+	public boolean isTestMethod(@Nonnull DotNetLikeMethodDeclaration element)
 	{
 		return DotNetAttributeUtil.hasAttribute(element, NUnitTypes.TestAttribute);
 	}
 
 	@RequiredReadAction
-	private boolean checkExtension(@NotNull PsiElement e)
+	private boolean checkExtension(@Nonnull PsiElement e)
 	{
 		return ModuleUtilCore.getExtension(e, NUnitSimpleModuleExtension.class) != null;
 	}

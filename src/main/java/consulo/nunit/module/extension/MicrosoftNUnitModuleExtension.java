@@ -18,7 +18,8 @@ package consulo.nunit.module.extension;
 
 import java.io.File;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -39,21 +40,21 @@ import consulo.roots.ModuleRootLayer;
  */
 public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MicrosoftNUnitModuleExtension> implements NUnitModuleExtension<MicrosoftNUnitModuleExtension>
 {
-	public MicrosoftNUnitModuleExtension(@NotNull String id, @NotNull ModuleRootLayer moduleRootLayer)
+	public MicrosoftNUnitModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer moduleRootLayer)
 	{
 		super(id, moduleRootLayer);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Class<? extends SdkType> getSdkTypeClass()
 	{
 		return NUnitBundleType.class;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public GeneralCommandLine createCommandLine(@NotNull Executor executor, @NotNull Sdk dotNetSdk, @NotNull Sdk nunitSdk) throws ExecutionException
+	public GeneralCommandLine createCommandLine(@Nonnull Executor executor, @Nonnull Sdk dotNetSdk, @Nonnull Sdk nunitSdk) throws ExecutionException
 	{
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) dotNetSdk.getSdkType();
 

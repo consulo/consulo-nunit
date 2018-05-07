@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -106,7 +108,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 		element.addContent(coverageElement);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	@SuppressWarnings("unchecked")
 	public SettingsEditor<? extends RunConfiguration> getConfigurationEditor()
@@ -119,7 +121,7 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 
 	@Nullable
 	@Override
-	public RunProfileState getState(@NotNull Executor executor, @NotNull final ExecutionEnvironment env) throws ExecutionException
+	public RunProfileState getState(@Nonnull Executor executor, @Nonnull final ExecutionEnvironment env) throws ExecutionException
 	{
 		NUnitConfiguration runProfile = (NUnitConfiguration) env.getRunProfile();
 

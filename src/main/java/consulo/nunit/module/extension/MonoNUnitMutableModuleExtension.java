@@ -16,10 +16,10 @@
 
 package consulo.nunit.module.extension;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.util.ui.JBUI;
 import consulo.annotations.RequiredDispatchThread;
@@ -34,12 +34,12 @@ import consulo.roots.ModuleRootLayer;
  */
 public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension implements MutableModuleExtensionWithSdk<MonoNUnitModuleExtension>
 {
-	public MonoNUnitMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer rootModel)
+	public MonoNUnitMutableModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer rootModel)
 	{
 		super(id, rootModel);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
 	{
@@ -55,13 +55,13 @@ public class MonoNUnitMutableModuleExtension extends MonoNUnitModuleExtension im
 	@RequiredDispatchThread
 	@Nullable
 	@Override
-	public JComponent createConfigurablePanel(@NotNull Runnable runnable)
+	public JComponent createConfigurablePanel(@Nonnull Runnable runnable)
 	{
 		return JBUI.Panels.simplePanel().addToTop(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
 	}
 
 	@Override
-	public boolean isModified(@NotNull MonoNUnitModuleExtension extension)
+	public boolean isModified(@Nonnull MonoNUnitModuleExtension extension)
 	{
 		return isModifiedImpl(extension);
 	}
