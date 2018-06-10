@@ -16,20 +16,24 @@
 
 package consulo.nunit.run;
 
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.Nonnull;
-import com.intellij.application.options.ModuleListCellRenderer;
+import javax.annotation.Nullable;
+
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.util.ui.FormBuilder;
-import consulo.annotations.RequiredDispatchThread;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
+import consulo.ui.Component;
+import consulo.ui.LabeledComponents;
+import consulo.ui.RequiredUIAccess;
+import consulo.ui.VerticalLayout;
+import consulo.ui.model.ListModel;
 
 /**
  * @author VISTALL
@@ -39,7 +43,7 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
 {
 	private final Project myProject;
 
-	private ComboBox myModuleComboBox;
+	private consulo.ui.ComboBox<Module> myModuleComboBox;
 
 	public NUnitConfigurationEditor(Project project)
 	{
@@ -47,35 +51,42 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
 	}
 
 	@Override
+	@RequiredUIAccess
 	protected void resetEditorFrom(NUnitConfiguration runConfiguration)
 	{
-		myModuleComboBox.setSelectedItem(runConfiguration.getConfigurationModule().getModule());
+		myModuleComboBox.setValue(runConfiguration.getConfigurationModule().getModule());
 	}
 
 	@Override
+	@RequiredUIAccess
 	protected void applyEditorTo(NUnitConfiguration runConfiguration) throws ConfigurationException
 	{
-		runConfiguration.getConfigurationModule().setModule((Module) myModuleComboBox.getSelectedItem());
+		runConfiguration.getConfigurationModule().setModule(myModuleComboBox.getValue());
 	}
 
-	@Nonnull
+	@Nullable
 	@Override
-	@RequiredDispatchThread
-	protected JComponent createEditor()
+	@RequiredUIAccess
+	protected Component createUIComponent()
 	{
-		myModuleComboBox = new ComboBox();
-		myModuleComboBox.setRenderer(new ModuleListCellRenderer());
+		VerticalLayout layout = VerticalLayout.create();
+
+		List<Module> list = new ArrayList<>();
 		for(Module module : ModuleManager.getInstance(myProject).getModules())
 		{
 			if(ModuleUtilCore.getExtension(module, DotNetModuleExtension.class) != null)
 			{
-				myModuleComboBox.addItem(module);
+				list.add(module);
 			}
 		}
+		myModuleComboBox = consulo.ui.ComboBox.create(ListModel.create(list));
+		myModuleComboBox.setRender((itemPresentation, i, module) ->
+		{
+			itemPresentation.append(module.getName());
+			itemPresentation.setIcon(AllIcons.Nodes.Module);
+		});
+		layout.add(LabeledComponents.left("Module", myModuleComboBox));
 
-		FormBuilder formBuilder = FormBuilder.createFormBuilder();
-		formBuilder.addLabeledComponent("Module", myModuleComboBox);
-
-		return formBuilder.getPanel();
+		return layout;
 	}
 }
