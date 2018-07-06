@@ -82,8 +82,11 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
 		myModuleComboBox = consulo.ui.ComboBox.create(ListModel.create(list));
 		myModuleComboBox.setRender((itemPresentation, i, module) ->
 		{
-			itemPresentation.append(module.getName());
-			itemPresentation.setIcon(AllIcons.Nodes.Module);
+			if(module != null)
+			{
+				itemPresentation.append(module.getName());
+				itemPresentation.setIcon(AllIcons.Nodes.Module);
+			}
 		});
 		layout.add(LabeledComponents.left("Module", myModuleComboBox));
 
