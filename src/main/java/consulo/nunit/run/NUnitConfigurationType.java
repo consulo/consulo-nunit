@@ -26,10 +26,10 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
-import consulo.annotations.RequiredDispatchThread;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.nunit.NUnitIcons;
 import consulo.nunit.module.extension.NUnitModuleExtension;
+import consulo.ui.RequiredUIAccess;
 
 /**
  * @author VISTALL
@@ -61,7 +61,7 @@ public class NUnitConfigurationType extends ConfigurationTypeBase
 			}
 
 			@Override
-			@RequiredDispatchThread
+			@RequiredUIAccess
 			public void onNewConfigurationCreated(@Nonnull RunConfiguration configuration)
 			{
 				NUnitConfiguration dotNetConfiguration = (NUnitConfiguration) configuration;

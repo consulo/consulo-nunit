@@ -30,10 +30,10 @@ import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
 import consulo.ui.Component;
-import consulo.ui.LabeledComponents;
 import consulo.ui.RequiredUIAccess;
-import consulo.ui.VerticalLayout;
+import consulo.ui.layout.VerticalLayout;
 import consulo.ui.model.ListModel;
+import consulo.ui.util.LabeledComponents;
 
 /**
  * @author VISTALL

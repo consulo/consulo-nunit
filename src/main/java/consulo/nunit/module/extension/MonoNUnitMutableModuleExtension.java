@@ -26,7 +26,7 @@ import consulo.module.extension.MutableModuleInheritableNamedPointer;
 import consulo.roots.ModuleRootLayer;
 import consulo.ui.Component;
 import consulo.ui.RequiredUIAccess;
-import consulo.ui.VerticalLayout;
+import consulo.ui.layout.VerticalLayout;
 
 /**
  * @author VISTALL
