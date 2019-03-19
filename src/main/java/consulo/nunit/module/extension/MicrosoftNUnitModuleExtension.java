@@ -16,23 +16,19 @@
 
 package consulo.nunit.module.extension;
 
-import java.io.File;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import com.intellij.ide.plugins.cl.PluginClassLoader;
-import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
 import consulo.dotnet.sdk.DotNetSdkType;
 import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
+
+import javax.annotation.Nonnull;
+import java.io.File;
 
 /**
  * @author VISTALL
@@ -61,11 +57,7 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<Mi
 		GeneralCommandLine commandLine = new GeneralCommandLine();
 		commandLine.setExePath(dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
 
-		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
-		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
-		assert plugin != null;
-
-		commandLine.addParameter(new File(plugin.getPath(), "nunit-ext.dll").getAbsolutePath());
+		commandLine.addParameter(new File(PluginManager.getPluginPath(MicrosoftNUnitModuleExtension.class), "nunit-ext.dll").getAbsolutePath());
 		commandLine.addParameter(nunitSdk.getHomePath() + "/bin/lib");
 
 		return commandLine;

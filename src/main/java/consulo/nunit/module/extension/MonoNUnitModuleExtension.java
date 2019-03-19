@@ -16,18 +16,11 @@
 
 package consulo.nunit.module.extension;
 
-import java.io.File;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.executors.DefaultDebugExecutor;
-import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import com.intellij.ide.plugins.cl.PluginClassLoader;
-import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
 import consulo.dotnet.execution.DebugConnectionInfo;
@@ -37,6 +30,9 @@ import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
+
+import javax.annotation.Nonnull;
+import java.io.File;
 
 /**
  * @author VISTALL
@@ -71,11 +67,7 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MonoNUn
 		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo, dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
 		commandLine.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
 
-		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
-		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
-		assert plugin != null;
-
-		commandLine.addParameter(new File(plugin.getPath(), "mono-nunit-ext.dll").getAbsolutePath());
+		commandLine.addParameter(new File(PluginManager.getPluginPath(MicrosoftNUnitModuleExtension.class), "mono-nunit-ext.dll").getAbsolutePath());
 		commandLine.addParameter(nunitSdk.getHomePath() + "/bin/lib");
 
 		return commandLine;

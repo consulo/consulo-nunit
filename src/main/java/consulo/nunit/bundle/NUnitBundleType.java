@@ -16,19 +16,8 @@
 
 package consulo.nunit.bundle;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import com.intellij.ide.plugins.cl.PluginClassLoader;
-import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
@@ -44,6 +33,13 @@ import consulo.roots.types.BinariesOrderRootType;
 import consulo.roots.types.DocumentationOrderRootType;
 import consulo.ui.image.Image;
 import consulo.vfs.util.ArchiveVfsUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -65,12 +61,8 @@ public class NUnitBundleType extends SdkType
 	@Override
 	public Collection<String> suggestHomePaths()
 	{
-		PluginId pluginId = ((PluginClassLoader) MicrosoftNUnitModuleExtension.class.getClassLoader()).getPluginId();
-		IdeaPluginDescriptor plugin = PluginManager.getPlugin(pluginId);
-		assert plugin != null;
-
-		List<String> paths = new ArrayList<String>();
-		File file = new File(plugin.getPath(), "releases");
+		List<String> paths = new ArrayList<>();
+		File file = new File(PluginManager.getPluginPath(MicrosoftNUnitModuleExtension.class), "releases");
 		if(file.exists())
 		{
 			for(File child : file.listFiles())
