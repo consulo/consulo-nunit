@@ -27,6 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import consulo.dotnet.dll.DotNetModuleFileType;
 import consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
+import consulo.internal.dotnet.asm.mbel.ModuleParser;
 import consulo.nunit.NUnitIcons;
 import consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import consulo.roots.types.BinariesOrderRootType;
@@ -92,11 +93,9 @@ public class NUnitBundleType extends SdkType
 		File file = new File(home, "bin/nunit.exe");
 		if(file.exists())
 		{
-			DotNetLibraryOpenCache.Record record = null;
 			try
 			{
-				record = DotNetLibraryOpenCache.acquire(file.getPath());
-				AssemblyInfo assemblyInfo = record.get().getAssemblyInfo();
+				AssemblyInfo assemblyInfo = ModuleParser.parseAssemblyInfo(file);
 				return StringUtil.join(new int[]{
 						assemblyInfo.getMajorVersion(),
 						assemblyInfo.getMinorVersion(),
@@ -106,13 +105,6 @@ public class NUnitBundleType extends SdkType
 			catch(Exception ignored)
 			{
 				///
-			}
-			finally
-			{
-				if(record != null)
-				{
-					record.finish();
-				}
 			}
 		}
 		return "0.0";
