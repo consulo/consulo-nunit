@@ -16,15 +16,13 @@
 
 package consulo.nunit.run;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.execution.DefaultExecutionResult;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.OSProcessHandler;
+import com.intellij.execution.process.ProcessHandlerFactory;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.runners.ProgramRunner;
 import com.intellij.execution.testframework.TestConsoleProperties;
@@ -33,6 +31,9 @@ import com.intellij.execution.testframework.ui.BaseTestsOutputConsoleView;
 import consulo.dotnet.run.PatchableRunProfileState;
 import consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
 import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
@@ -58,7 +59,7 @@ public class NUnitRunState extends PatchableRunProfileState
 
 		final BaseTestsOutputConsoleView smtConsoleView = ThriftTestExecutionUtil.createConsoleWithCustomLocator("NUnit", testConsoleProperties, myExecutionEnvironment, myFactory, null);
 
-		OSProcessHandler osProcessHandler = patchHandler(new OSProcessHandler(getCommandLineForRun()));
+		OSProcessHandler osProcessHandler = patchHandler(ProcessHandlerFactory.getInstance().createProcessHandler(getCommandLineForRun()));
 
 		smtConsoleView.attachToProcess(osProcessHandler);
 

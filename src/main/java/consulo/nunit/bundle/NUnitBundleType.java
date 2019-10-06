@@ -25,7 +25,6 @@ import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import consulo.dotnet.dll.DotNetModuleFileType;
-import consulo.dotnet.module.extension.DotNetLibraryOpenCache;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
 import consulo.internal.dotnet.asm.mbel.ModuleParser;
 import consulo.nunit.NUnitIcons;
@@ -48,9 +47,10 @@ import java.util.List;
  */
 public class NUnitBundleType extends SdkType
 {
+	@Nonnull
 	public static SdkType getInstance()
 	{
-		return EP_NAME.findExtension(NUnitBundleType.class);
+		return EP_NAME.findExtensionOrFail(NUnitBundleType.class);
 	}
 
 	public NUnitBundleType()
