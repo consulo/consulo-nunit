@@ -16,22 +16,9 @@
 
 package consulo.nunit.run;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jdom.Element;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.configurations.ModuleBasedConfiguration;
-import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.execution.configurations.RunConfigurationModule;
-import com.intellij.execution.configurations.RunProfileState;
+import com.intellij.execution.configurations.*;
 import com.intellij.execution.configurations.coverage.CoverageEnabledConfiguration;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.testframework.sm.runner.GeneralTestEventsProcessor;
@@ -43,7 +30,7 @@ import com.intellij.openapi.options.SettingsEditorGroup;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
-import consulo.annotations.RequiredReadAction;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.dotnet.compiler.DotNetMacroUtil;
 import consulo.dotnet.execution.DebugConnectionInfo;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
@@ -54,6 +41,13 @@ import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
 import consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
 import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
 import consulo.nunit.module.extension.NUnitModuleExtension;
+import org.jdom.Element;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL

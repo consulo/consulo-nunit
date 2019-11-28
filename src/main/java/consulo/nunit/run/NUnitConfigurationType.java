@@ -16,8 +16,6 @@
 
 package consulo.nunit.run;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -29,7 +27,9 @@ import com.intellij.openapi.project.Project;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.nunit.NUnitIcons;
 import consulo.nunit.module.extension.NUnitModuleExtension;
-import consulo.ui.RequiredUIAccess;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -40,7 +40,7 @@ public class NUnitConfigurationType extends ConfigurationTypeBase
 	@Nonnull
 	public static NUnitConfigurationType getInstance()
 	{
-		return CONFIGURATION_TYPE_EP.findExtension(NUnitConfigurationType.class);
+		return CONFIGURATION_TYPE_EP.findExtensionOrFail(NUnitConfigurationType.class);
 	}
 
 	public NUnitConfigurationType()
