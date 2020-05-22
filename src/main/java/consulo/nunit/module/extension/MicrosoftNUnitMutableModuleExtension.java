@@ -16,6 +16,7 @@
 
 package consulo.nunit.module.extension;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.projectRoots.Sdk;
 import consulo.extension.ui.ModuleExtensionBundleBoxBuilder;
 import consulo.module.extension.MutableModuleExtensionWithSdk;
@@ -55,10 +56,13 @@ public class MicrosoftNUnitMutableModuleExtension extends MicrosoftNUnitModuleEx
 	@RequiredUIAccess
 	@Nullable
 	@Override
-	public Component createConfigurationComponent(@Nonnull Runnable updateOnCheck)
+	public Component createConfigurationComponent(@Nonnull Disposable uiDisposable, @Nonnull Runnable updateOnCheck)
 	{
 		VerticalLayout layout = VerticalLayout.create();
-		layout.add(ModuleExtensionBundleBoxBuilder.createAndDefine(this, updateOnCheck).build());
+		ModuleExtensionBundleBoxBuilder builder = ModuleExtensionBundleBoxBuilder.createAndDefine(this, updateOnCheck);
+		builder.uiDisposable(uiDisposable);
+
+		layout.add(builder.build());
 		return layout;
 	}
 
