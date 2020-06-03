@@ -16,13 +16,17 @@
 
 package consulo.nunit.module.extension;
 
+import java.io.File;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.executors.DefaultDebugExecutor;
-import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
+import consulo.container.plugin.PluginManager;
 import consulo.dotnet.execution.DebugConnectionInfo;
 import consulo.dotnet.run.DotNetRunKeys;
 import consulo.dotnet.sdk.DotNetSdkType;
@@ -30,9 +34,6 @@ import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.mono.dotnet.module.extension.MonoDotNetModuleExtension;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
-
-import javax.annotation.Nonnull;
-import java.io.File;
 
 /**
  * @author VISTALL

@@ -14,7 +14,7 @@
   - limitations under the License.
   -->
 
-<idea-plugin>
+<consulo-plugin>
 	<extensions defaultExtensionNs="com.intellij">
 		<moduleExtensionProvider key="mono-nunit"
 								 parentKey="mono-dotnet"
@@ -23,4 +23,4 @@
 								 immutableClass="consulo.nunit.module.extension.MonoNUnitModuleExtension"
 								 mutableClass="consulo.nunit.module.extension.MonoNUnitMutableModuleExtension"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>

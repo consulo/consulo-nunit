@@ -16,19 +16,20 @@
 
 package consulo.nunit.module.extension;
 
+import java.io.File;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkType;
+import consulo.container.plugin.PluginManager;
 import consulo.dotnet.sdk.DotNetSdkType;
 import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import consulo.nunit.bundle.NUnitBundleType;
 import consulo.roots.ModuleRootLayer;
-
-import javax.annotation.Nonnull;
-import java.io.File;
 
 /**
  * @author VISTALL

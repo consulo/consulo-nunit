@@ -14,7 +14,7 @@
   - limitations under the License.
   -->
 
-<idea-plugin>
+<consulo-plugin>
 	<id>consulo.nunit</id>
 	<name>NUnit</name>
 	<version>SNAPSHOT</version>
@@ -34,4 +34,4 @@
 		<configurationType implementation="consulo.nunit.run.NUnitConfigurationType" />
 		<runConfigurationProducer implementation="consulo.nunit.run.NUnitConfigurationProducer" />
 	</extensions>
-</idea-plugin>
+</consulo-plugin>
