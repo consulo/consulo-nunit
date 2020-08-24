@@ -84,7 +84,7 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
 			if(module != null)
 			{
 				itemPresentation.append(module.getName());
-				itemPresentation.setIcon(AllIcons.Nodes.Module);
+				itemPresentation.withIcon(AllIcons.Nodes.Module);
 			}
 		});
 		layout.add(LabeledComponents.left("Module", myModuleComboBox));
