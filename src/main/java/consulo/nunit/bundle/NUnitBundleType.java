@@ -16,14 +16,6 @@
 
 package consulo.nunit.bundle;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
@@ -35,12 +27,19 @@ import consulo.container.plugin.PluginManager;
 import consulo.dotnet.dll.DotNetModuleFileType;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
 import consulo.internal.dotnet.asm.mbel.ModuleParser;
-import consulo.nunit.NUnitIcons;
+import consulo.nunit.icon.NUnitIconGroup;
 import consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
 import consulo.roots.types.BinariesOrderRootType;
 import consulo.roots.types.DocumentationOrderRootType;
 import consulo.ui.image.Image;
 import consulo.vfs.util.ArchiveVfsUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author VISTALL
@@ -127,7 +126,7 @@ public class NUnitBundleType extends SdkType
 	@Override
 	public Image getIcon()
 	{
-		return NUnitIcons.NUnit;
+		return NUnitIconGroup.nunit();
 	}
 
 	@Override

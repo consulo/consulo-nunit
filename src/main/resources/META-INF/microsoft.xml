@@ -19,7 +19,7 @@
 		<moduleExtensionProvider key="microsoft-nunit"
 								 parentKey="microsoft-dotnet"
 								 name="NUnit"
-								 icon="/icons/nunit.png"
+								 icon="consulo.nunit.NUnitIconGroup@nunit"
 								 immutableClass="consulo.nunit.module.extension.MicrosoftNUnitModuleExtension"
 								 mutableClass="consulo.nunit.module.extension.MicrosoftNUnitMutableModuleExtension"/>
 	</extensions>

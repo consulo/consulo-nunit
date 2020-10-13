@@ -25,7 +25,7 @@ import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import consulo.module.extension.ModuleExtensionHelper;
-import consulo.nunit.NUnitIcons;
+import consulo.nunit.icon.NUnitIconGroup;
 import consulo.nunit.module.extension.NUnitModuleExtension;
 import consulo.ui.annotation.RequiredUIAccess;
 
@@ -40,12 +40,12 @@ public class NUnitConfigurationType extends ConfigurationTypeBase
 	@Nonnull
 	public static NUnitConfigurationType getInstance()
 	{
-		return CONFIGURATION_TYPE_EP.findExtensionOrFail(NUnitConfigurationType.class);
+		return EP_NAME.findExtensionOrFail(NUnitConfigurationType.class);
 	}
 
 	public NUnitConfigurationType()
 	{
-		super("#NUnitConfigurationType", "NUnit", "", NUnitIcons.NUnit);
+		super("#NUnitConfigurationType", "NUnit", "", NUnitIconGroup.nunit());
 		addFactory(new ConfigurationFactoryEx(this)
 		{
 			@Override
