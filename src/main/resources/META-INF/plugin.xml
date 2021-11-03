@@ -20,6 +20,9 @@
 	<version>SNAPSHOT</version>
 	<vendor>consulo.io</vendor>
 	<category>Test Frameworks</category>
+	<tags>
+		<tag>test.framework</tag>
+	</tags>
 	<depends>consulo.dotnet</depends>
 	<depends>com.intellij.xml</depends>
 	<depends config-file="mono.xml" optional="true">consulo.dotnet.mono</depends>
