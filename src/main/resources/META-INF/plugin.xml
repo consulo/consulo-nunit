@@ -14,7 +14,7 @@
   - limitations under the License.
   -->
 
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-nunit">
 	<id>consulo.nunit</id>
 	<name>NUnit</name>
 	<version>SNAPSHOT</version>
