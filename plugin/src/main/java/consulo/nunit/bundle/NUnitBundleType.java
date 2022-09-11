@@ -16,23 +16,23 @@
 
 package consulo.nunit.bundle;
 
-import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkModificator;
-import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.OrderRootType;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.container.plugin.PluginManager;
+import consulo.content.OrderRootType;
+import consulo.content.base.BinariesOrderRootType;
+import consulo.content.base.DocumentationOrderRootType;
+import consulo.content.bundle.Sdk;
+import consulo.content.bundle.SdkModificator;
+import consulo.content.bundle.SdkType;
 import consulo.dotnet.dll.DotNetModuleFileType;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
 import consulo.internal.dotnet.asm.mbel.ModuleParser;
 import consulo.nunit.icon.NUnitIconGroup;
 import consulo.nunit.module.extension.MicrosoftNUnitModuleExtension;
-import consulo.roots.types.BinariesOrderRootType;
-import consulo.roots.types.DocumentationOrderRootType;
 import consulo.ui.image.Image;
-import consulo.vfs.util.ArchiveVfsUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.archive.ArchiveVfsUtil;
+import consulo.xml.ide.highlighter.XmlFileType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,6 +45,7 @@ import java.util.List;
  * @author VISTALL
  * @since 10.02.14
  */
+@ExtensionImpl
 public class NUnitBundleType extends SdkType
 {
 	@Nonnull
@@ -96,11 +97,7 @@ public class NUnitBundleType extends SdkType
 			try
 			{
 				AssemblyInfo assemblyInfo = ModuleParser.parseAssemblyInfo(file);
-				return StringUtil.join(new int[]{
-						assemblyInfo.getMajorVersion(),
-						assemblyInfo.getMinorVersion(),
-						assemblyInfo.getBuildNumber()
-				}, ".");
+				return assemblyInfo.getMajorVersion() + "." + assemblyInfo.getMinorVersion() + "." + assemblyInfo.getBuildNumber();
 			}
 			catch(Exception ignored)
 			{

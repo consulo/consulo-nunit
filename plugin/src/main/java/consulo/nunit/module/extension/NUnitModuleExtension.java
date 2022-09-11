@@ -16,13 +16,13 @@
 
 package consulo.nunit.module.extension;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.openapi.projectRoots.Sdk;
+import consulo.content.bundle.Sdk;
+import consulo.execution.executor.Executor;
 import consulo.module.extension.ModuleExtensionWithSdk;
+import consulo.process.ExecutionException;
+import consulo.process.cmd.GeneralCommandLine;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL

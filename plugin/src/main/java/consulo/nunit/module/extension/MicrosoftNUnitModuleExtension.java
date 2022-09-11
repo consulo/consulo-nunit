@@ -16,26 +16,25 @@
 
 package consulo.nunit.module.extension;
 
-import java.io.File;
+import consulo.container.plugin.PluginManager;
+import consulo.content.bundle.Sdk;
+import consulo.content.bundle.SdkType;
+import consulo.dotnet.sdk.DotNetSdkType;
+import consulo.execution.executor.Executor;
+import consulo.module.content.layer.ModuleRootLayer;
+import consulo.module.content.layer.extension.ModuleExtensionWithSdkBase;
+import consulo.nunit.bundle.NUnitBundleType;
+import consulo.process.ExecutionException;
+import consulo.process.cmd.GeneralCommandLine;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkType;
-import consulo.container.plugin.PluginManager;
-import consulo.dotnet.sdk.DotNetSdkType;
-import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
-import consulo.nunit.bundle.NUnitBundleType;
-import consulo.roots.ModuleRootLayer;
+import java.io.File;
 
 /**
  * @author VISTALL
  * @since 10.02.14
  */
-public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkImpl<MicrosoftNUnitModuleExtension> implements NUnitModuleExtension<MicrosoftNUnitModuleExtension>
+public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkBase<MicrosoftNUnitModuleExtension> implements NUnitModuleExtension<MicrosoftNUnitModuleExtension>
 {
 	public MicrosoftNUnitModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer moduleRootLayer)
 	{

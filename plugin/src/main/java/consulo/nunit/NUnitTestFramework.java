@@ -16,13 +16,14 @@
 
 package consulo.nunit;
 
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.psi.PsiElement;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.dotnet.psi.DotNetAttributeUtil;
 import consulo.dotnet.psi.DotNetLikeMethodDeclaration;
 import consulo.dotnet.psi.DotNetTypeDeclaration;
-import consulo.dotnet.run.DotNetTestFramework;
+import consulo.dotnet.psi.test.DotNetTestFramework;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.ModuleUtilCore;
 import consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 
 import javax.annotation.Nonnull;
@@ -31,6 +32,7 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 10.02.14
  */
+@ExtensionImpl
 public class NUnitTestFramework extends DotNetTestFramework
 {
 	@RequiredReadAction

@@ -16,17 +16,18 @@
 
 package consulo.nunit.run;
 
-import com.intellij.execution.configuration.ConfigurationFactoryEx;
-import com.intellij.execution.configurations.ConfigurationTypeBase;
-import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.execution.configurations.RunConfigurationModule;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.Project;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.execution.configuration.ConfigurationFactoryEx;
+import consulo.execution.configuration.ConfigurationTypeBase;
+import consulo.execution.configuration.RunConfiguration;
+import consulo.execution.configuration.RunConfigurationModule;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.ModuleManager;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.nunit.icon.NUnitIconGroup;
 import consulo.nunit.module.extension.NUnitModuleExtension;
+import consulo.project.Project;
 import consulo.ui.annotation.RequiredUIAccess;
 
 import javax.annotation.Nonnull;
@@ -35,6 +36,7 @@ import javax.annotation.Nonnull;
  * @author VISTALL
  * @since 28.03.14
  */
+@ExtensionImpl
 public class NUnitConfigurationType extends ConfigurationTypeBase
 {
 	@Nonnull

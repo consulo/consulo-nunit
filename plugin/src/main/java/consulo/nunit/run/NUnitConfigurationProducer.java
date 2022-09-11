@@ -16,18 +16,20 @@
 
 package consulo.nunit.run;
 
-import com.intellij.execution.actions.ConfigurationContext;
-import com.intellij.execution.actions.RunConfigurationProducer;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.util.Ref;
-import com.intellij.psi.PsiElement;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.execution.action.ConfigurationContext;
+import consulo.execution.action.RunConfigurationProducer;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
 import consulo.nunit.module.extension.NUnitModuleExtension;
+import consulo.util.lang.ref.Ref;
 
 /**
  * @author VISTALL
  * @since 26.07.14
  */
+@ExtensionImpl
 public class NUnitConfigurationProducer extends RunConfigurationProducer<NUnitConfiguration>
 {
 	public NUnitConfigurationProducer()

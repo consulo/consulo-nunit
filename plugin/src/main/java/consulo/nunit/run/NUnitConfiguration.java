@@ -16,31 +16,31 @@
 
 package consulo.nunit.run;
 
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.*;
-import com.intellij.execution.configurations.coverage.CoverageEnabledConfiguration;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.testframework.sm.runner.GeneralTestEventsProcessor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.options.SettingsEditor;
-import com.intellij.openapi.options.SettingsEditorGroup;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.util.InvalidDataException;
-import com.intellij.openapi.util.WriteExternalException;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.content.bundle.Sdk;
 import consulo.dotnet.compiler.DotNetMacroUtil;
-import consulo.dotnet.execution.DebugConnectionInfo;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
-import consulo.dotnet.run.DotNetRunKeys;
 import consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
-import consulo.dotnet.run.coverage.DotNetCoverageConfigurationEditor;
-import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
-import consulo.execution.testframework.thrift.runner.BaseThriftTestHandler;
-import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
+import consulo.dotnet.run.impl.coverage.DotNetCoverageConfigurationEditor;
+import consulo.dotnet.run.impl.coverage.DotNetCoverageEnabledConfiguration;
+import consulo.dotnet.util.DebugConnectionInfo;
+import consulo.execution.configuration.*;
+import consulo.execution.configuration.ui.SettingsEditor;
+import consulo.execution.configuration.ui.SettingsEditorGroup;
+import consulo.execution.coverage.CoverageEnabledConfiguration;
+import consulo.execution.executor.Executor;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.execution.test.sm.runner.GeneralTestEventsProcessor;
+import consulo.execution.test.thrift.runner.BaseThriftTestHandler;
+import consulo.execution.test.thrift.runner.ThriftTestHandlerFactory;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.ModuleManager;
 import consulo.nunit.module.extension.NUnitModuleExtension;
+import consulo.process.ExecutionException;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.util.xml.serializer.InvalidDataException;
+import consulo.util.xml.serializer.WriteExternalException;
 import org.jdom.Element;
 
 import javax.annotation.Nonnull;
@@ -164,10 +164,10 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 
 		NUnitRunState state = new NUnitRunState(env, commandLine, factory);
 
-		DebugConnectionInfo debugConnectionInfo = commandLine.getUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY);
+		DebugConnectionInfo debugConnectionInfo = commandLine.getUserData(DebugConnectionInfo.KEY);
 		if(debugConnectionInfo != null)
 		{
-			state.putUserData(DotNetRunKeys.DEBUG_CONNECTION_INFO_KEY, debugConnectionInfo);
+			state.putUserData(DebugConnectionInfo.KEY, debugConnectionInfo);
 		}
 		return state;
 	}

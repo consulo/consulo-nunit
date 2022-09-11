@@ -16,21 +16,21 @@
 
 package consulo.nunit.run;
 
-import com.intellij.execution.DefaultExecutionResult;
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.ExecutionResult;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessHandlerFactory;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.runners.ProgramRunner;
-import com.intellij.execution.testframework.TestConsoleProperties;
-import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties;
-import com.intellij.execution.testframework.ui.BaseTestsOutputConsoleView;
 import consulo.dotnet.run.PatchableRunProfileState;
-import consulo.execution.testframework.thrift.runner.ThriftTestExecutionUtil;
-import consulo.execution.testframework.thrift.runner.ThriftTestHandlerFactory;
+import consulo.execution.DefaultExecutionResult;
+import consulo.execution.ExecutionResult;
+import consulo.execution.executor.Executor;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.execution.runner.ProgramRunner;
+import consulo.execution.test.TestConsoleProperties;
+import consulo.execution.test.sm.runner.SMTRunnerConsoleProperties;
+import consulo.execution.test.thrift.runner.ThriftTestExecutionUtil;
+import consulo.execution.test.thrift.runner.ThriftTestHandlerFactory;
+import consulo.execution.test.ui.BaseTestsOutputConsoleView;
+import consulo.process.ExecutionException;
+import consulo.process.ProcessHandler;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.local.ProcessHandlerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,7 +59,7 @@ public class NUnitRunState extends PatchableRunProfileState
 
 		final BaseTestsOutputConsoleView smtConsoleView = ThriftTestExecutionUtil.createConsoleWithCustomLocator("NUnit", testConsoleProperties, myExecutionEnvironment, myFactory, null);
 
-		OSProcessHandler osProcessHandler = patchHandler(ProcessHandlerFactory.getInstance().createProcessHandler(getCommandLineForRun()));
+		ProcessHandler osProcessHandler = patchHandler(ProcessHandlerFactory.getInstance().createProcessHandler(getCommandLineForRun()));
 
 		smtConsoleView.attachToProcess(osProcessHandler);
 
