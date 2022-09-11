@@ -24,7 +24,6 @@
 		<tag>test.framework</tag>
 	</tags>
 	<depends>consulo.dotnet</depends>
-	<depends>com.intellij.xml</depends>
-	<depends config-file="mono.xml" optional="true">consulo.dotnet.mono</depends>
-	<depends config-file="microsoft.xml" optional="true">consulo.dotnet.microsoft</depends>
+	<depends optional="true">consulo.dotnet.mono</depends>
+	<depends optional="true">consulo.dotnet.microsoft</depends>
 </consulo-plugin>
