@@ -25,9 +25,9 @@
 	</parent>
 
 	<groupId>consulo.plugin</groupId>
-	<artifactId>consulo.nunit.parent</artifactId>
+	<artifactId>consulo.nunit.api</artifactId>
 	<version>3-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<repositories>
 		<repository>
@@ -40,10 +40,37 @@
 		</repository>
 	</repositories>
 
-	<modules>
-		<module>nunit-api</module>
-		<module>nunit-mono</module>
-		<module>nunit-microsoft</module>
-		<module>plugin</module>
-	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>consulo.maven</groupId>
+				<artifactId>maven-consulo-plugin</artifactId>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>gen</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate-icon</goal>
+						</goals>
+					</execution>
+
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.thrift</groupId>
+			<artifactId>libthrift</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>

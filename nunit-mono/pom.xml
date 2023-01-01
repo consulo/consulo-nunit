@@ -25,9 +25,9 @@
 	</parent>
 
 	<groupId>consulo.plugin</groupId>
-	<artifactId>consulo.nunit.parent</artifactId>
+	<artifactId>consulo.nunit.mono</artifactId>
 	<version>3-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<repositories>
 		<repository>
@@ -40,10 +40,18 @@
 		</repository>
 	</repositories>
 
-	<modules>
-		<module>nunit-api</module>
-		<module>nunit-mono</module>
-		<module>nunit-microsoft</module>
-		<module>plugin</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.nunit.api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet.mono</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
