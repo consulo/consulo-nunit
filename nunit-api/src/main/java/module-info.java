@@ -11,5 +11,6 @@ module consulo.nunit.api
 	exports consulo.nunit;
 	exports consulo.nunit.bundle;
 	exports consulo.nunit.icon;
+	exports consulo.nunit.localize;
 	exports consulo.nunit.module.extension;
 }

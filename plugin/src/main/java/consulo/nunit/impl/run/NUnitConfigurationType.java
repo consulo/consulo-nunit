@@ -26,6 +26,7 @@ import consulo.module.Module;
 import consulo.module.ModuleManager;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.nunit.icon.NUnitIconGroup;
+import consulo.nunit.localize.NUnitLocalize;
 import consulo.nunit.module.extension.NUnitModuleExtension;
 import consulo.project.Project;
 import consulo.ui.annotation.RequiredUIAccess;
@@ -47,7 +48,7 @@ public class NUnitConfigurationType extends ConfigurationTypeBase
 
 	public NUnitConfigurationType()
 	{
-		super("#NUnitConfigurationType", "NUnit", "", NUnitIconGroup.nunit());
+		super("#NUnitConfigurationType", NUnitLocalize.nunitConfigurationName(), NUnitIconGroup.nunit());
 		addFactory(new ConfigurationFactory(this)
 		{
 			@Override
