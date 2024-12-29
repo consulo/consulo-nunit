@@ -30,7 +30,7 @@ import consulo.ui.layout.VerticalLayout;
 import consulo.ui.model.ListModel;
 import consulo.ui.util.LabeledComponents;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 

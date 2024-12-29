@@ -28,7 +28,7 @@ import consulo.nunit.module.extension.NUnitModuleExtension;
 import consulo.process.ExecutionException;
 import consulo.process.cmd.GeneralCommandLine;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.File;
 
 /**

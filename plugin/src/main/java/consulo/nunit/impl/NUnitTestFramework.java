@@ -27,7 +27,7 @@ import consulo.language.util.ModuleUtilCore;
 import consulo.nunit.NUnitTypes;
 import consulo.nunit.module.extension.NUnitSimpleModuleExtension;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL
