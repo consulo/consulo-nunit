@@ -17,10 +17,8 @@
 package consulo.nunit.impl.run;
 
 import consulo.annotation.component.ExtensionImpl;
-import consulo.execution.configuration.ConfigurationFactory;
-import consulo.execution.configuration.ConfigurationTypeBase;
-import consulo.execution.configuration.RunConfiguration;
-import consulo.execution.configuration.RunConfigurationModule;
+import consulo.application.Application;
+import consulo.execution.configuration.*;
 import consulo.language.util.ModuleUtilCore;
 import consulo.module.Module;
 import consulo.module.ModuleManager;
@@ -30,7 +28,6 @@ import consulo.nunit.localize.NUnitLocalize;
 import consulo.nunit.module.extension.NUnitModuleExtension;
 import consulo.project.Project;
 import consulo.ui.annotation.RequiredUIAccess;
-
 import jakarta.annotation.Nonnull;
 
 /**
@@ -38,48 +35,39 @@ import jakarta.annotation.Nonnull;
  * @since 28.03.14
  */
 @ExtensionImpl
-public class NUnitConfigurationType extends ConfigurationTypeBase
-{
-	@Nonnull
-	public static NUnitConfigurationType getInstance()
-	{
-		return EP_NAME.findExtensionOrFail(NUnitConfigurationType.class);
-	}
+public class NUnitConfigurationType extends ConfigurationTypeBase {
+    @Nonnull
+    public static NUnitConfigurationType getInstance() {
+        return Application.get().getExtensionPoint(ConfigurationType.class).findExtensionOrFail(NUnitConfigurationType.class);
+    }
 
-	public NUnitConfigurationType()
-	{
-		super("#NUnitConfigurationType", NUnitLocalize.nunitConfigurationName(), NUnitIconGroup.nunit());
-		addFactory(new ConfigurationFactory(this)
-		{
-			@Override
-			public RunConfiguration createTemplateConfiguration(Project project)
-			{
-				return new NUnitConfiguration("Unnamed", new RunConfigurationModule(project), this);
-			}
+    public NUnitConfigurationType() {
+        super("#NUnitConfigurationType", NUnitLocalize.nunitConfigurationName(), NUnitIconGroup.nunit());
+        addFactory(new ConfigurationFactory(this) {
+            @Override
+            public RunConfiguration createTemplateConfiguration(Project project) {
+                return new NUnitConfiguration("Unnamed", new RunConfigurationModule(project), this);
+            }
 
-			@Override
-			public boolean isApplicable(@Nonnull Project project)
-			{
-				return ModuleExtensionHelper.getInstance(project).hasModuleExtension(NUnitModuleExtension.class);
-			}
+            @Override
+            public boolean isApplicable(@Nonnull Project project) {
+                return ModuleExtensionHelper.getInstance(project).hasModuleExtension(NUnitModuleExtension.class);
+            }
 
-			@Override
-			@RequiredUIAccess
-			public void onNewConfigurationCreated(@Nonnull RunConfiguration configuration)
-			{
-				NUnitConfiguration dotNetConfiguration = (NUnitConfiguration) configuration;
+            @Override
+            @RequiredUIAccess
+            public void onNewConfigurationCreated(@Nonnull RunConfiguration configuration) {
+                NUnitConfiguration dotNetConfiguration = (NUnitConfiguration) configuration;
 
-				for(Module module : ModuleManager.getInstance(configuration.getProject()).getModules())
-				{
-					NUnitModuleExtension extension = ModuleUtilCore.getExtension(module, NUnitModuleExtension.class);
-					if(extension != null)
-					{
-						dotNetConfiguration.setName(module.getName());
-						dotNetConfiguration.setModule(module);
-						break;
-					}
-				}
-			}
-		});
-	}
+                for (Module module : ModuleManager.getInstance(configuration.getProject()).getModules()) {
+                    NUnitModuleExtension extension = ModuleUtilCore.getExtension(module, NUnitModuleExtension.class);
+                    if (extension != null) {
+                        dotNetConfiguration.setName(module.getName());
+                        dotNetConfiguration.setModule(module);
+                        break;
+                    }
+                }
+            }
+        });
+    }
 }
