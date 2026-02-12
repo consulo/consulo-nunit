@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package consulo.nunit.impl.run;
 
-import consulo.application.AllIcons;
 import consulo.configurable.ConfigurationException;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
 import consulo.execution.configuration.ui.SettingsEditor;
 import consulo.language.util.ModuleUtilCore;
 import consulo.module.Module;
 import consulo.module.ModuleManager;
+import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.project.Project;
+import consulo.ui.ComboBox;
 import consulo.ui.Component;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.layout.VerticalLayout;
@@ -31,64 +31,56 @@ import consulo.ui.model.ListModel;
 import consulo.ui.util.LabeledComponents;
 
 import jakarta.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author VISTALL
- * @since 28.03.14
+ * @since 2014-03-28
  */
-public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
-{
-	private final Project myProject;
+public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration> {
+    private final Project myProject;
 
-	private consulo.ui.ComboBox<Module> myModuleComboBox;
+    private consulo.ui.ComboBox<Module> myModuleComboBox;
 
-	public NUnitConfigurationEditor(Project project)
-	{
-		myProject = project;
-	}
+    public NUnitConfigurationEditor(Project project) {
+        myProject = project;
+    }
 
-	@Override
-	@RequiredUIAccess
-	protected void resetEditorFrom(NUnitConfiguration runConfiguration)
-	{
-		myModuleComboBox.setValue(runConfiguration.getConfigurationModule().getModule());
-	}
+    @Override
+    @RequiredUIAccess
+    protected void resetEditorFrom(NUnitConfiguration runConfiguration) {
+        myModuleComboBox.setValue(runConfiguration.getConfigurationModule().getModule());
+    }
 
-	@Override
-	@RequiredUIAccess
-	protected void applyEditorTo(NUnitConfiguration runConfiguration) throws ConfigurationException
-	{
-		runConfiguration.getConfigurationModule().setModule(myModuleComboBox.getValue());
-	}
+    @Override
+    @RequiredUIAccess
+    protected void applyEditorTo(NUnitConfiguration runConfiguration) throws ConfigurationException {
+        runConfiguration.getConfigurationModule().setModule(myModuleComboBox.getValue());
+    }
 
-	@Nullable
-	@Override
-	@RequiredUIAccess
-	protected Component createUIComponent()
-	{
-		VerticalLayout layout = VerticalLayout.create();
+    @Nullable
+    @Override
+    @RequiredUIAccess
+    protected Component createUIComponent() {
+        VerticalLayout layout = VerticalLayout.create();
 
-		List<Module> list = new ArrayList<>();
-		for(Module module : ModuleManager.getInstance(myProject).getModules())
-		{
-			if(ModuleUtilCore.getExtension(module, DotNetModuleExtension.class) != null)
-			{
-				list.add(module);
-			}
-		}
-		myModuleComboBox = consulo.ui.ComboBox.create(ListModel.create(list));
-		myModuleComboBox.setRender((itemPresentation, i, module) ->
-		{
-			if(module != null)
-			{
-				itemPresentation.append(module.getName());
-				itemPresentation.withIcon(AllIcons.Nodes.Module);
-			}
-		});
-		layout.add(LabeledComponents.left("Module", myModuleComboBox));
+        List<Module> list = new ArrayList<>();
+        for (Module module : ModuleManager.getInstance(myProject).getModules()) {
+            if (ModuleUtilCore.getExtension(module, DotNetModuleExtension.class) != null) {
+                list.add(module);
+            }
+        }
+        myModuleComboBox = ComboBox.create(ListModel.of(list));
+        myModuleComboBox.setRenderer((itemPresentation, i, module) -> {
+            if (module != null) {
+                itemPresentation.append(module.getName());
+                itemPresentation.withIcon(PlatformIconGroup.nodesModule());
+            }
+        });
+        layout.add(LabeledComponents.left("Module", myModuleComboBox));
 
-		return layout;
-	}
+        return layout;
+    }
 }
