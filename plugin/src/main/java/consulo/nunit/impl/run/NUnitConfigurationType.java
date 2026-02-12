@@ -42,7 +42,7 @@ public class NUnitConfigurationType extends ConfigurationTypeBase {
     }
 
     public NUnitConfigurationType() {
-        super("#NUnitConfigurationType", NUnitLocalize.nunitConfigurationName(), NUnitIconGroup.nunit());
+        super("#NUnitConfigurationType", NUnitLocalize.nunitName(), NUnitIconGroup.nunit());
         addFactory(new ConfigurationFactory(this) {
             @Override
             public RunConfiguration createTemplateConfiguration(Project project) {

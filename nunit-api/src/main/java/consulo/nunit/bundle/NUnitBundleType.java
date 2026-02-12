@@ -29,7 +29,7 @@ import consulo.dotnet.dll.DotNetModuleFileType;
 import consulo.internal.dotnet.asm.mbel.AssemblyInfo;
 import consulo.internal.dotnet.asm.mbel.ModuleParser;
 import consulo.nunit.icon.NUnitIconGroup;
-import consulo.ui.image.Image;
+import consulo.nunit.localize.NUnitLocalize;
 import consulo.util.lang.StringUtil;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.archive.ArchiveVfsUtil;
@@ -53,7 +53,7 @@ public class NUnitBundleType extends SdkType {
     }
 
     public NUnitBundleType() {
-        super("NUNIT_BUNDLE");
+        super("NUNIT_BUNDLE", NUnitLocalize.nunitName(), NUnitIconGroup.nunit());
     }
 
     @Nonnull
@@ -96,19 +96,8 @@ public class NUnitBundleType extends SdkType {
     }
 
     @Override
-    public String suggestSdkName(String s, String sdkHome) {
-        return "NUnit " + getVersionString(sdkHome);
-    }
-
-    @Override
     public boolean isRootTypeApplicable(OrderRootType type) {
         return type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType.getInstance();
-    }
-
-    @Nullable
-    @Override
-    public Image getIcon() {
-        return NUnitIconGroup.nunit();
     }
 
     @Override
@@ -135,11 +124,5 @@ public class NUnitBundleType extends SdkType {
             }
         }
         sdkModificator.commitChanges();
-    }
-
-    @Nonnull
-    @Override
-    public String getPresentableName() {
-        return "NUnit";
     }
 }
