@@ -5,5 +5,7 @@
 module consulo.nunit.mono
 {
 	requires consulo.nunit.api;
+	requires consulo.execution.debug.api;
+	requires consulo.module.ui.api;
 	requires consulo.dotnet.mono;
 }

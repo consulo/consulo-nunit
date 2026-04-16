@@ -5,4 +5,5 @@
 module consulo.nunit.microsoft
 {
 	requires consulo.nunit.api;
+	requires consulo.module.ui.api;
 }

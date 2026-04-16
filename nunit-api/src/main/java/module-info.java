@@ -4,7 +4,8 @@
  */
 module consulo.nunit.api
 {
-	requires transitive consulo.ide.api;
+	requires transitive consulo.execution.api;
+	requires consulo.process.api;
 	requires transitive consulo.dotnet.api;
 	requires consulo.internal.dotnet.asm;
 
