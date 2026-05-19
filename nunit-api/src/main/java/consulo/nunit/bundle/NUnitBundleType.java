@@ -22,6 +22,7 @@ import consulo.container.plugin.PluginManager;
 import consulo.content.OrderRootType;
 import consulo.content.base.BinariesOrderRootType;
 import consulo.content.base.DocumentationOrderRootType;
+import consulo.content.base.SourcesOrderRootType;
 import consulo.content.bundle.Sdk;
 import consulo.content.bundle.SdkModificator;
 import consulo.content.bundle.SdkType;
@@ -40,6 +41,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author VISTALL
@@ -47,10 +49,7 @@ import java.util.List;
  */
 @ExtensionImpl
 public class NUnitBundleType extends SdkType {
-    @Nonnull
-    public static SdkType getInstance() {
-        return Application.get().getExtensionPoint(SdkType.class).findExtensionOrFail(NUnitBundleType.class);
-    }
+    private static final Set<String> ourAllowedRootTypeIds = Set.of(BinariesOrderRootType.ID, SourcesOrderRootType.ID);
 
     public NUnitBundleType() {
         super("NUNIT_BUNDLE", NUnitLocalize.nunitName(), NUnitIconGroup.nunit());
@@ -96,8 +95,8 @@ public class NUnitBundleType extends SdkType {
     }
 
     @Override
-    public boolean isRootTypeApplicable(OrderRootType type) {
-        return type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType.getInstance();
+    public boolean isRootTypeApplicable(String type) {
+        return ourAllowedRootTypeIds.contains(type);
     }
 
     @Override
@@ -115,11 +114,11 @@ public class NUnitBundleType extends SdkType {
                 if (virtualFile.getFileType() == DotNetModuleFileType.INSTANCE) {
                     VirtualFile archiveRootForLocalFile = ArchiveVfsUtil.getArchiveRootForLocalFile(virtualFile);
                     if (archiveRootForLocalFile != null) {
-                        sdkModificator.addRoot(archiveRootForLocalFile, BinariesOrderRootType.getInstance());
+                        sdkModificator.addRoot(archiveRootForLocalFile, BinariesOrderRootType.ID);
                     }
                 }
                 else if (StringUtil.equalsIgnoreCase(virtualFile.getExtension(), "xml")) {
-                    sdkModificator.addRoot(virtualFile, DocumentationOrderRootType.getInstance());
+                    sdkModificator.addRoot(virtualFile, DocumentationOrderRootType.ID);
                 }
             }
         }
