@@ -27,11 +27,12 @@ import consulo.ui.ComboBox;
 import consulo.ui.Component;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.layout.VerticalLayout;
-import consulo.ui.model.ListModel;
+import consulo.ui.model.FlatDataModel;
 import consulo.ui.util.LabeledComponents;
 
 import jakarta.annotation.Nullable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +73,9 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
                 list.add(module);
             }
         }
-        myModuleComboBox = ComboBox.create(ListModel.of(list));
-        myModuleComboBox.setRenderer((itemPresentation, i, module) -> {
+        myModuleComboBox = ComboBox.create(FlatDataModel.of(list));
+        myModuleComboBox.setRender((itemPresentation, item) -> {
+            Module module = item.getValue();
             if (module != null) {
                 itemPresentation.append(module.getName());
                 itemPresentation.withIcon(PlatformIconGroup.nodesModule());
