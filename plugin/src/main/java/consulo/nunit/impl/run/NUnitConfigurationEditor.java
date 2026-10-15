@@ -29,10 +29,8 @@ import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.layout.VerticalLayout;
 import consulo.ui.model.FlatDataModel;
 import consulo.ui.util.LabeledComponents;
-
 import jakarta.annotation.Nullable;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +72,7 @@ public class NUnitConfigurationEditor extends SettingsEditor<NUnitConfiguration>
             }
         }
         myModuleComboBox = ComboBox.create(FlatDataModel.of(list));
-        myModuleComboBox.setRender((itemPresentation, item) -> {
+        myModuleComboBox.setRenderer((itemPresentation, item) -> {
             Module module = item.getValue();
             if (module != null) {
                 itemPresentation.append(module.getName());
