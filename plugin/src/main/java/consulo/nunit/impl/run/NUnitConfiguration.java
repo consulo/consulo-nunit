@@ -21,13 +21,8 @@ import consulo.content.bundle.Sdk;
 import consulo.dotnet.compiler.DotNetMacroUtil;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
 import consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
-import consulo.dotnet.run.impl.coverage.DotNetCoverageConfigurationEditor;
-import consulo.dotnet.run.impl.coverage.DotNetCoverageEnabledConfiguration;
 import consulo.dotnet.util.DebugConnectionInfo;
 import consulo.execution.configuration.*;
-import consulo.execution.configuration.ui.SettingsEditor;
-import consulo.execution.configuration.ui.SettingsEditorGroup;
-import consulo.execution.coverage.CoverageEnabledConfiguration;
 import consulo.execution.executor.Executor;
 import consulo.execution.runner.ExecutionEnvironment;
 import consulo.execution.test.sm.runner.GeneralTestEventsProcessor;
@@ -39,9 +34,6 @@ import consulo.module.ModuleManager;
 import consulo.nunit.module.extension.NUnitModuleExtension;
 import consulo.process.ExecutionException;
 import consulo.process.cmd.GeneralCommandLine;
-import consulo.util.xml.serializer.InvalidDataException;
-import consulo.util.xml.serializer.WriteExternalException;
-import org.jdom.Element;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -76,38 +68,9 @@ public class NUnitConfiguration extends ModuleBasedConfiguration<RunConfiguratio
 	}
 
 	@Override
-	public void readExternal(Element element) throws InvalidDataException
+	protected Class<NUnitConfigurationOptions> getOptionsClass()
 	{
-		super.readExternal(element);
-
-		Element coverageElement = element.getChild("coverage");
-		if(coverageElement != null)
-		{
-			CoverageEnabledConfiguration coverageEnabledConfiguration = DotNetCoverageEnabledConfiguration.getOrCreate(this);
-			coverageEnabledConfiguration.readExternal(coverageElement);
-		}
-	}
-
-	@Override
-	public void writeExternal(Element element) throws WriteExternalException
-	{
-		super.writeExternal(element);
-
-		CoverageEnabledConfiguration coverageEnabledConfiguration = DotNetCoverageEnabledConfiguration.getOrCreate(this);
-		Element coverageElement = new Element("coverage");
-		coverageEnabledConfiguration.writeExternal(coverageElement);
-		element.addContent(coverageElement);
-	}
-
-	@Nonnull
-	@Override
-	@SuppressWarnings("unchecked")
-	public SettingsEditor<? extends RunConfiguration> getConfigurationEditor()
-	{
-		SettingsEditorGroup group = new SettingsEditorGroup();
-		group.addEditor("General", new NUnitConfigurationEditor(getProject()));
-		group.addEditor("Coverage", new DotNetCoverageConfigurationEditor());
-		return group;
+		return NUnitConfigurationOptions.class;
 	}
 
 	@Nullable
