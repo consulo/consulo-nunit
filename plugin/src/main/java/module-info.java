@@ -13,4 +13,6 @@ module consulo.nunit
 	requires consulo.execution.test.sm.api;
 	requires consulo.execution.test.thrift.api;
 	requires org.apache.thrift;
+
+	opens consulo.nunit.impl.run to consulo.util.xml.serializer, consulo.execution.api;
 }
