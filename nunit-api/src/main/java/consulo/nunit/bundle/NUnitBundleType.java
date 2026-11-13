@@ -84,7 +84,7 @@ public class NUnitBundleType extends SdkType {
         File file = new File(home, "bin/nunit.exe");
         if (file.exists()) {
             try {
-                AssemblyInfo assemblyInfo = ModuleParser.parseAssemblyInfo(file);
+                AssemblyInfo assemblyInfo = ModuleParser.parseAssemblyInfo(file.toPath());
                 return assemblyInfo.getMajorVersion() + "." + assemblyInfo.getMinorVersion() + "." + assemblyInfo.getBuildNumber();
             }
             catch (Exception ignored) {

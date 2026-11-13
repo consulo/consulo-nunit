@@ -56,7 +56,7 @@ public class MicrosoftNUnitModuleExtension extends ModuleExtensionWithSdkBase<Mi
 		DotNetSdkType dotNetSdkType = (DotNetSdkType) dotNetSdk.getSdkType();
 
 		GeneralCommandLine commandLine = new GeneralCommandLine();
-		commandLine.setExePath(dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
+		commandLine.setExePath(dotNetSdkType.getLoaderFile(dotNetSdk).toString());
 
 		commandLine.addParameter(new File(PluginManager.getPluginPath(MicrosoftNUnitModuleExtension.class), "nunit-ext.dll").getAbsolutePath());
 		commandLine.addParameter(nunitSdk.getHomePath() + "/bin/lib");

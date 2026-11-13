@@ -64,7 +64,7 @@ public class MonoNUnitModuleExtension extends ModuleExtensionWithSdkBase<MonoNUn
 			debugConnectionInfo = new DebugConnectionInfo("127.0.0.1", -1, true);
 		}
 
-		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo, dotNetSdkType.getLoaderFile(dotNetSdk).getAbsolutePath());
+		GeneralCommandLine commandLine = MonoDotNetModuleExtension.createDefaultCommandLineImpl(dotNetSdk, debugConnectionInfo, dotNetSdkType.getLoaderFile(dotNetSdk).toString());
 		commandLine.putUserData(DebugConnectionInfo.KEY, debugConnectionInfo);
 
 		commandLine.addParameter(new File(PluginManager.getPluginPath(MonoNUnitModuleExtension.class), "mono-nunit-ext.dll").getAbsolutePath());
